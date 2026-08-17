@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DliCOM Community ID</title>
+<title>DliCOM ID Card Generator</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,10 +15,6 @@
 
 <style>
 
-/* =========================
-   BASIC
-========================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -27,24 +23,21 @@
 
 body{
     min-height:100vh;
-    padding:20px 12px 50px;
-
+    padding:18px 10px 50px;
     font-family:Inter,Arial,sans-serif;
-
     color:#fff;
-
     background:
         radial-gradient(
             circle at 50% 0%,
-            #182d79 0%,
-            #070d29 38%,
-            #02030c 100%
+            #1b3180 0%,
+            #080d29 38%,
+            #02030b 100%
         );
 }
 
 .container{
     width:100%;
-    max-width:780px;
+    max-width:850px;
     margin:auto;
 }
 
@@ -55,109 +48,74 @@ body{
 
 .header h1{
     font-family:"Space Grotesk",sans-serif;
-    font-size:clamp(30px,6vw,46px);
+    font-size:clamp(28px,6vw,46px);
     font-weight:800;
 }
 
 .header p{
     margin-top:7px;
-    color:#9ba9cf;
+    color:#9aa9d0;
     font-size:14px;
     font-weight:700;
 }
 
-
-/* =========================
-   FORM
-========================= */
-
 .form-box{
     padding:20px;
-
     border-radius:20px;
-
-    background:rgba(7,14,40,.95);
-
+    background:rgba(7,14,40,.96);
     border:1px solid rgba(86,121,255,.35);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.4);
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 
 .form-title{
-    font-family:"Space Grotesk",sans-serif;
-
-    font-size:20px;
-
-    font-weight:800;
-
     margin-bottom:18px;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:21px;
+    font-weight:800;
 }
 
 .field{
     margin-bottom:17px;
-
     position:relative;
 }
 
 label{
     display:block;
-
     margin-bottom:7px;
-
     color:#91a8e9;
-
     font-size:11px;
-
     font-weight:900;
-
     text-transform:uppercase;
-
-    letter-spacing:.9px;
+    letter-spacing:1px;
 }
 
 input,
 select{
     width:100%;
-
     height:50px;
-
     padding:0 14px;
-
+    border:1px solid #293b72;
     border-radius:11px;
-
-    border:1px solid #26396e;
-
     outline:none;
-
     background:#080f2b;
-
     color:#fff;
-
     font-family:Inter,sans-serif;
-
     font-size:14px;
-
-    font-weight:800;
+    font-weight:700;
 }
 
 input::placeholder{
-    color:#8793b2;
-
-    font-weight:800;
+    color:#7f8ba9;
 }
 
 input:focus,
 select:focus{
-    border-color:#507dff;
-
-    box-shadow:
-        0 0 0 3px rgba(80,125,255,.12);
+    border-color:#527dff;
+    box-shadow:0 0 0 3px rgba(82,125,255,.12);
 }
 
 select option{
     background:#080f2b;
-
     color:#fff;
 }
 
@@ -172,77 +130,45 @@ select option{
 
 .role-button{
     width:100%;
-
     min-height:50px;
-
     padding:0 14px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
-
+    border:1px solid #293b72;
     border-radius:11px;
-
-    border:1px solid #26396e;
-
     background:#080f2b;
-
     color:#fff;
-
-    font-family:Inter,sans-serif;
-
     font-size:14px;
-
-    font-weight:800;
-
+    font-weight:700;
     cursor:pointer;
-
-    text-align:left;
 }
 
 .role-button:hover{
-    border-color:#507dff;
+    border-color:#527dff;
 }
 
 .role-text{
     overflow:hidden;
-
     text-overflow:ellipsis;
-
     white-space:nowrap;
 }
 
 .role-menu{
     display:none;
-
     position:absolute;
-
     z-index:100;
-
     top:57px;
-
     left:0;
-
     right:0;
-
     max-height:330px;
-
     overflow-y:auto;
-
     padding:8px;
-
-    border-radius:13px;
-
-    background:#070d25;
-
     border:1px solid #30467e;
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.65);
+    border-radius:14px;
+    background:#070d25;
+    box-shadow:0 20px 50px rgba(0,0,0,.7);
 }
 
 .role-menu.open{
@@ -251,51 +177,31 @@ select option{
 
 .role-option{
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
     padding:11px;
-
     border-radius:8px;
-
     color:#fff;
-
     cursor:pointer;
-
     font-size:14px;
-
-    font-weight:800;
+    font-weight:700;
+    text-transform:none;
+    letter-spacing:0;
 }
 
 .role-option:hover{
-    background:rgba(65,105,255,.16);
+    background:rgba(65,105,255,.17);
 }
 
 .role-option input{
     width:18px;
-
     height:18px;
-
-    accent-color:#507dff;
-
-    cursor:pointer;
-}
-
-.other-role{
-    display:none;
-
-    margin-top:9px;
-}
-
-.other-role.show{
-    display:block;
+    accent-color:#527dff;
 }
 
 
 /* =========================
-   COUNTRY SEARCH DROPDOWN
+   COUNTRY SEARCH
 ========================= */
 
 .country-select{
@@ -304,73 +210,43 @@ select option{
 
 .country-button{
     width:100%;
-
     min-height:50px;
-
     padding:0 14px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
-
+    border:1px solid #293b72;
     border-radius:11px;
-
-    border:1px solid #26396e;
-
     background:#080f2b;
-
     color:#fff;
-
-    font-family:Inter,sans-serif;
-
     font-size:14px;
-
-    font-weight:800;
-
+    font-weight:700;
     cursor:pointer;
-
-    text-align:left;
 }
 
 .country-button:hover{
-    border-color:#507dff;
+    border-color:#527dff;
 }
 
 .country-text{
     overflow:hidden;
-
     text-overflow:ellipsis;
-
     white-space:nowrap;
 }
 
 .country-menu{
     display:none;
-
     position:absolute;
-
     z-index:200;
-
     top:57px;
-
     left:0;
-
     right:0;
-
     padding:9px;
-
-    border-radius:14px;
-
-    background:#070d25;
-
     border:1px solid #30467e;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.7);
+    border-radius:14px;
+    background:#070d25;
+    box-shadow:0 20px 50px rgba(0,0,0,.7);
 }
 
 .country-menu.open{
@@ -378,40 +254,22 @@ select option{
 }
 
 .country-search{
-    width:100%;
-
-    height:45px;
-
     margin-bottom:8px;
-
-    background:#080f2b;
 }
 
 .country-list{
-    max-height:285px;
-
+    max-height:290px;
     overflow-y:auto;
 }
 
 .country-item{
     display:flex;
-
     align-items:center;
-
-    gap:10px;
-
-    width:100%;
-
+    gap:11px;
     padding:11px;
-
     border-radius:8px;
-
-    color:#fff;
-
     cursor:pointer;
-
     font-size:14px;
-
     font-weight:700;
 }
 
@@ -421,49 +279,52 @@ select option{
 
 .country-flag{
     width:28px;
-
     text-align:center;
-
     font-size:20px;
 }
 
 
 /* =========================
-   BUTTON
+   GENERATE / DOWNLOAD
 ========================= */
 
-.download{
-    width:100%;
-
-    height:54px;
-
-    margin-top:4px;
-
-    border:0;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2f6bff,
-            #5b35ff
-        );
-
-    color:#fff;
-
-    font-size:16px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 10px 30px rgba(47,107,255,.25);
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:5px;
 }
 
-.download:active{
-    transform:scale(.99);
+.generate,
+.download{
+    flex:1;
+    height:54px;
+    border:0;
+    border-radius:12px;
+    font-family:Inter,sans-serif;
+    font-size:15px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.generate{
+    color:#fff;
+    background:linear-gradient(135deg,#2f6bff,#5b35ff);
+}
+
+.download{
+    display:none;
+    color:#07102d;
+    background:#fff;
+}
+
+.download.show{
+    display:block;
+}
+
+.generate:disabled,
+.download:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 
@@ -473,71 +334,52 @@ select option{
 
 .preview-title{
     margin:28px 0 11px 3px;
-
     color:#8191ba;
-
     font-size:12px;
-
     font-weight:900;
-
     text-transform:uppercase;
-
     letter-spacing:1.2px;
 }
 
 .preview-wrap{
     width:100%;
-
     overflow-x:auto;
-
     overflow-y:hidden;
-
     border-radius:20px;
 }
 
 
 /* =========================
-   ID CARD
+   CARD
 ========================= */
 
 #idCard{
-
     position:relative;
-
     width:1200px;
-
     height:800px;
-
     overflow:hidden;
-
     border-radius:35px;
 
     background:
         #05091c
-        url("mascot.png")
+        url("card-bg.png")
         center/cover
         no-repeat;
 
     color:#fff;
 }
 
-
-/* readability */
-
 #idCard::after{
-
     content:"";
-
     position:absolute;
-
     inset:0;
 
     background:
         linear-gradient(
             90deg,
-            rgba(3,7,27,.76) 0%,
-            rgba(3,7,27,.48) 42%,
-            rgba(3,7,27,.05) 75%
+            rgba(3,7,27,.78) 0%,
+            rgba(3,7,27,.52) 43%,
+            rgba(3,7,27,.08) 78%
         );
 
     pointer-events:none;
@@ -549,68 +391,43 @@ select option{
 ========================= */
 
 .card-content{
-
     position:absolute;
-
     z-index:3;
-
     left:70px;
-
     top:55px;
-
-    width:600px;
+    width:610px;
 }
 
 .brand-name{
-
     font-family:"Space Grotesk",sans-serif;
-
     font-size:48px;
-
     line-height:1;
-
     font-weight:700;
 }
 
 .brand-sub{
-
     margin-top:9px;
-
-    margin-bottom:40px;
-
+    margin-bottom:35px;
     color:#7395ff;
-
     font-size:18px;
-
     font-weight:900;
-
     letter-spacing:5px;
 }
 
 .card-name{
-
-    font-family:"Space Grotesk",sans-serif;
-
-    font-size:40px;
-
-    line-height:1.1;
-
-    font-weight:700;
-
     margin-bottom:7px;
-
+    font-family:"Space Grotesk",sans-serif;
+    font-size:40px;
+    line-height:1.1;
+    font-weight:700;
     word-break:break-word;
 }
 
 .card-x{
-
+    margin-bottom:25px;
     color:#8da8ff;
-
     font-size:19px;
-
     font-weight:700;
-
-    margin-bottom:27px;
 }
 
 
@@ -619,15 +436,10 @@ select option{
 ========================= */
 
 .details{
-
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     column-gap:35px;
-
-    row-gap:20px;
+    row-gap:18px;
 }
 
 .detail{
@@ -636,43 +448,26 @@ select option{
 
 .detail-full{
     grid-column:1/-1;
-
-    padding-bottom:12px;
-
-    border-bottom:
-        1px solid
-        rgba(86,119,220,.45);
+    padding-bottom:11px;
+    border-bottom:1px solid rgba(86,119,220,.45);
 }
 
 .detail-label{
-
     display:block;
-
+    margin-bottom:5px;
     color:#7093ff;
-
     font-size:12px;
-
     font-weight:900;
-
-    letter-spacing:2.5px;
-
-    margin-bottom:6px;
+    letter-spacing:2.3px;
 }
 
 .detail-value{
-
     display:block;
-
-    font-family:"Space Grotesk",sans-serif;
-
     color:#fff;
-
-    font-size:20px;
-
+    font-family:"Space Grotesk",sans-serif;
+    font-size:19px;
     font-weight:700;
-
     line-height:1.2;
-
     word-break:break-word;
 }
 
@@ -682,25 +477,17 @@ select option{
 ========================= */
 
 .card-footer{
-
     position:absolute;
-
     z-index:4;
-
     left:70px;
-
     right:70px;
-
     bottom:35px;
 
     display:flex;
-
+    align-items:center;
     justify-content:space-between;
 
-    align-items:center;
-
     font-size:14px;
-
     font-weight:800;
 }
 
@@ -716,24 +503,20 @@ select option{
 @media(max-width:600px){
 
     body{
-        padding:
-            15px
-            9px
-            35px;
+        padding:14px 8px 35px;
     }
 
     .form-box{
         padding:15px;
-
         border-radius:17px;
     }
 
-    .card-name{
-        font-size:34px;
+    .buttons{
+        flex-direction:column;
     }
 
-    .preview-wrap{
-        overflow-x:auto;
+    #idCard{
+        border-radius:20px;
     }
 
 }
@@ -744,7 +527,6 @@ select option{
 
 <body>
 
-
 <div class="container">
 
 
@@ -752,9 +534,7 @@ select option{
 
     <div class="header">
 
-        <h1>
-            DliCOM ID Card
-        </h1>
+        <h1>DliCOM ID Card</h1>
 
         <p>
             Create your DliCOM Community Identity
@@ -776,9 +556,7 @@ select option{
 
         <div class="field">
 
-            <label>
-                Name
-            </label>
+            <label>Name</label>
 
             <input
                 id="name"
@@ -789,13 +567,11 @@ select option{
         </div>
 
 
-        <!-- X -->
+        <!-- X USERNAME -->
 
         <div class="field">
 
-            <label>
-                X Username
-            </label>
+            <label>X Username</label>
 
             <input
                 id="xUsername"
@@ -810,9 +586,7 @@ select option{
 
         <div class="field">
 
-            <label>
-                Discord Username
-            </label>
+            <label>Discord Username</label>
 
             <input
                 id="discord"
@@ -827,9 +601,7 @@ select option{
 
         <div class="field">
 
-            <label>
-                Gender
-            </label>
+            <label>Gender</label>
 
             <select id="gender">
 
@@ -858,12 +630,9 @@ select option{
 
         <div class="field">
 
-            <label>
-                Roles
-            </label>
+            <label>Roles</label>
 
             <div class="role-select">
-
 
                 <div
                     class="role-button"
@@ -877,9 +646,7 @@ select option{
                         Select roles
                     </span>
 
-                    <span>
-                        ▼
-                    </span>
+                    <span>▼</span>
 
                 </div>
 
@@ -889,6 +656,7 @@ select option{
                     id="roleMenu"
                 >
 
+                    <!-- Dliever -->
 
                     <label class="role-option">
 
@@ -897,12 +665,12 @@ select option{
                             value="Dliever"
                         >
 
-                        <span>
-                            Dliever
-                        </span>
+                        <span>Dliever</span>
 
                     </label>
 
+
+                    <!-- Dcoded -->
 
                     <label class="role-option">
 
@@ -911,12 +679,12 @@ select option{
                             value="Dcoded"
                         >
 
-                        <span>
-                            Dcoded
-                        </span>
+                        <span>Dcoded</span>
 
                     </label>
 
+
+                    <!-- DCO -->
 
                     <label class="role-option">
 
@@ -925,12 +693,12 @@ select option{
                             value="DCO"
                         >
 
-                        <span>
-                            DCO
-                        </span>
+                        <span>DCO</span>
 
                     </label>
 
+
+                    <!-- Regional Helper -->
 
                     <label class="role-option">
 
@@ -939,12 +707,12 @@ select option{
                             value="Regional Helper"
                         >
 
-                        <span>
-                            Regional Helper
-                        </span>
+                        <span>Regional Helper</span>
 
                     </label>
 
+
+                    <!-- Regional Lead -->
 
                     <label class="role-option">
 
@@ -953,12 +721,12 @@ select option{
                             value="Regional Lead"
                         >
 
-                        <span>
-                            Regional Lead
-                        </span>
+                        <span>Regional Lead</span>
 
                     </label>
 
+
+                    <!-- MOD -->
 
                     <label class="role-option">
 
@@ -967,12 +735,12 @@ select option{
                             value="MOD"
                         >
 
-                        <span>
-                            MOD
-                        </span>
+                        <span>MOD</span>
 
                     </label>
 
+
+                    <!-- Team -->
 
                     <label class="role-option">
 
@@ -981,41 +749,13 @@ select option{
                             value="Team"
                         >
 
-                        <span>
-                            Team
-                        </span>
+                        <span>Team</span>
 
                     </label>
-
-
-                    <!-- OTHER ROLE -->
-
-                    <label class="role-option">
-
-                        <input
-                            type="checkbox"
-                            id="otherRoleCheck"
-                            value="Other"
-                        >
-
-                        <span>
-                            Other
-                        </span>
-
-                    </label>
-
 
                 </div>
 
             </div>
-
-
-            <input
-                id="otherRole"
-                class="other-role"
-                type="text"
-                placeholder="Type your role"
-            >
 
         </div>
 
@@ -1024,13 +764,9 @@ select option{
 
         <div class="field">
 
-            <label>
-                Country / Region
-            </label>
-
+            <label>Country / Region</label>
 
             <div class="country-select">
-
 
                 <div
                     class="country-button"
@@ -1044,9 +780,7 @@ select option{
                         🌐 Select country
                     </span>
 
-                    <span>
-                        ▼
-                    </span>
+                    <span>▼</span>
 
                 </div>
 
@@ -1055,7 +789,6 @@ select option{
                     class="country-menu"
                     id="countryMenu"
                 >
-
 
                     <input
                         id="countrySearch"
@@ -1070,7 +803,6 @@ select option{
                         id="countryList"
                     ></div>
 
-
                 </div>
 
             </div>
@@ -1078,13 +810,11 @@ select option{
         </div>
 
 
-        <!-- OG -->
+        <!-- OG MEMBER -->
 
         <div class="field">
 
-            <label>
-                OG Member
-            </label>
+            <label>OG Member</label>
 
             <select id="og">
 
@@ -1109,9 +839,7 @@ select option{
 
         <div class="field">
 
-            <label>
-                Member Since
-            </label>
+            <label>Member Since</label>
 
             <input
                 id="memberSince"
@@ -1121,14 +849,26 @@ select option{
         </div>
 
 
-        <!-- DOWNLOAD -->
+        <!-- BUTTONS -->
 
-        <button
-            class="download"
-            id="downloadBtn"
-        >
-            Download PNG
-        </button>
+        <div class="buttons">
+
+            <button
+                class="generate"
+                id="generateBtn"
+            >
+                Generate PNG
+            </button>
+
+
+            <button
+                class="download"
+                id="downloadBtn"
+            >
+                Download PNG
+            </button>
+
+        </div>
 
     </div>
 
@@ -1142,14 +882,11 @@ select option{
 
     <div class="preview-wrap">
 
-
         <div id="idCard">
 
 
             <div class="card-content">
 
-
-                <!-- BRAND -->
 
                 <div class="brand-name">
                     DliCOM
@@ -1160,8 +897,6 @@ select option{
                 </div>
 
 
-                <!-- NAME -->
-
                 <div
                     class="card-name"
                     id="cardName"
@@ -1169,8 +904,6 @@ select option{
                     Your Name
                 </div>
 
-
-                <!-- X -->
 
                 <div
                     class="card-x"
@@ -1180,12 +913,10 @@ select option{
                 </div>
 
 
-                <!-- DETAILS -->
-
                 <div class="details">
 
 
-                    <!-- ID -->
+                    <!-- DLICOM ID -->
 
                     <div class="detail detail-full">
 
@@ -1275,7 +1006,7 @@ select option{
                     </div>
 
 
-                    <!-- OG -->
+                    <!-- OG MEMBER -->
 
                     <div class="detail">
 
@@ -1310,13 +1041,10 @@ select option{
 
                     </div>
 
-
                 </div>
 
             </div>
 
-
-            <!-- FOOTER -->
 
             <div class="card-footer">
 
@@ -1330,7 +1058,6 @@ select option{
 
             </div>
 
-
         </div>
 
     </div>
@@ -1342,7 +1069,7 @@ select option{
 
 
 /* =========================
-   COUNTRIES
+   COUNTRY DATA
 ========================= */
 
 const countries = [
@@ -1583,13 +1310,13 @@ const xInput =
 const discordInput =
     document.getElementById("discord");
 
-const gender =
+const genderInput =
     document.getElementById("gender");
 
-const og =
+const ogInput =
     document.getElementById("og");
 
-const memberSince =
+const sinceInput =
     document.getElementById("memberSince");
 
 const roleButton =
@@ -1600,12 +1327,6 @@ const roleMenu =
 
 const roleText =
     document.getElementById("roleText");
-
-const otherRoleCheck =
-    document.getElementById("otherRoleCheck");
-
-const otherRole =
-    document.getElementById("otherRole");
 
 const countryButton =
     document.getElementById("countryButton");
@@ -1622,67 +1343,63 @@ const countryList =
 const countryText =
     document.getElementById("countryText");
 
+const generateBtn =
+    document.getElementById("generateBtn");
+
+const downloadBtn =
+    document.getElementById("downloadBtn");
+
 
 /* =========================
    DLICOM ID
 ========================= */
 
-function generateId(){
+function createDliComId(){
 
     const chars =
         "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-    let result = "DLC-";
+    let id = "DLC-";
 
-    for(let i=0;i<6;i++){
+    for(let i = 0; i < 6; i++){
 
-        result +=
-            chars[
-                Math.floor(
-                    Math.random() *
-                    chars.length
-                )
-            ];
+        id += chars[
+            Math.floor(
+                Math.random() * chars.length
+            )
+        ];
 
     }
 
-    return result;
+    return id;
 }
 
-const dlicomId =
-    generateId();
-
-document.getElementById(
-    "cardId"
-).textContent =
-    dlicomId;
+let dlicomId =
+    createDliComId();
 
 
 /* =========================
-   COUNTRY LIST
+   COUNTRY RENDER
 ========================= */
 
-function renderCountries(
-    search = ""
-){
+function renderCountries(search = ""){
 
     countryList.innerHTML = "";
 
     const query =
-        search
-        .toLowerCase()
-        .trim();
+        search.toLowerCase().trim();
 
 
-    countries
-    .filter(function(item){
+    const filtered =
+        countries.filter(
+            item =>
+            item[1]
+            .toLowerCase()
+            .includes(query)
+        );
 
-        return item[1]
-        .toLowerCase()
-        .includes(query);
 
-    })
-    .forEach(function(item){
+    filtered.forEach(function(item){
 
         const div =
             document.createElement("div");
@@ -1691,7 +1408,6 @@ function renderCountries(
             "country-item";
 
         div.innerHTML = `
-
             <span class="country-flag">
                 ${item[0]}
             </span>
@@ -1699,7 +1415,6 @@ function renderCountries(
             <span>
                 ${item[1]}
             </span>
-
         `;
 
 
@@ -1713,17 +1428,16 @@ function renderCountries(
                     item[1];
 
 
-                document.getElementById(
-                    "cardCountry"
-                ).textContent =
-                    item[0] +
-                    " " +
+                countryText.dataset.country =
                     item[1];
+
+                countryText.dataset.flag =
+                    item[0];
 
 
                 countryMenu
-                .classList
-                .remove("open");
+                    .classList
+                    .remove("open");
 
                 countrySearch.value = "";
 
@@ -1757,16 +1471,15 @@ function renderCountries(
             countryText.textContent =
                 "🌐 Other";
 
+            countryText.dataset.country =
+                "Other";
 
-            document.getElementById(
-                "cardCountry"
-            ).textContent =
-                "🌐 Other";
-
+            countryText.dataset.flag =
+                "🌐";
 
             countryMenu
-            .classList
-            .remove("open");
+                .classList
+                .remove("open");
 
             countrySearch.value = "";
 
@@ -1783,7 +1496,7 @@ renderCountries();
 
 
 /* =========================
-   COUNTRY OPEN
+   COUNTRY SEARCH
 ========================= */
 
 countryButton.addEventListener(
@@ -1793,22 +1506,17 @@ countryButton.addEventListener(
         event.stopPropagation();
 
         countryMenu
-        .classList
-        .toggle("open");
-
+            .classList
+            .toggle("open");
 
         if(
             countryMenu
-            .classList
-            .contains("open")
+                .classList
+                .contains("open")
         ){
 
             setTimeout(
-                function(){
-
-                    countrySearch.focus();
-
-                },
+                () => countrySearch.focus(),
                 50
             );
 
@@ -1817,10 +1525,6 @@ countryButton.addEventListener(
     }
 );
 
-
-/* =========================
-   COUNTRY SEARCH
-========================= */
 
 countrySearch.addEventListener(
     "input",
@@ -1845,7 +1549,7 @@ countryMenu.addEventListener(
 
 
 /* =========================
-   ROLE OPEN
+   ROLE DROPDOWN
 ========================= */
 
 roleButton.addEventListener(
@@ -1855,8 +1559,8 @@ roleButton.addEventListener(
         event.stopPropagation();
 
         roleMenu
-        .classList
-        .toggle("open");
+            .classList
+            .toggle("open");
 
     }
 );
@@ -1873,55 +1577,24 @@ roleMenu.addEventListener(
 
 
 /* =========================
-   GET ROLES
+   ROLE UPDATE
 ========================= */
 
 function getRoles(){
 
-    const checked =
-        [
-            ...roleMenu.querySelectorAll(
-                'input[type="checkbox"]:checked'
-            )
-        ];
-
-
-    let roles =
-        checked.map(
-            checkbox =>
-            checkbox.value
-        );
-
-
-    if(
-        otherRoleCheck.checked &&
-        otherRole.value.trim()
-    ){
-
-        roles =
-            roles.filter(
-                role =>
-                role !== "Other"
-            );
-
-
-        roles.push(
-            otherRole.value.trim()
-        );
-
-    }
-
-
-    return roles;
+    return [
+        ...roleMenu.querySelectorAll(
+            'input[type="checkbox"]:checked'
+        )
+    ].map(
+        checkbox =>
+        checkbox.value
+    );
 
 }
 
 
-/* =========================
-   UPDATE ROLES
-========================= */
-
-function updateRoles(){
+function updateRoleText(){
 
     const roles =
         getRoles();
@@ -1932,14 +1605,6 @@ function updateRoles(){
         ? roles.join(" • ")
         : "Select roles";
 
-
-    document.getElementById(
-        "cardRole"
-    ).textContent =
-        roles.length
-        ? roles.join(" • ")
-        : "—";
-
 }
 
 
@@ -1947,51 +1612,14 @@ roleMenu
 .querySelectorAll(
     'input[type="checkbox"]'
 )
-.forEach(
-    checkbox => {
+.forEach(function(checkbox){
 
-        checkbox.addEventListener(
-            "change",
-            function(){
+    checkbox.addEventListener(
+        "change",
+        updateRoleText
+    );
 
-                if(
-                    this ===
-                    otherRoleCheck
-                ){
-
-                    if(this.checked){
-
-                        otherRole
-                        .classList
-                        .add("show");
-
-                    }
-                    else{
-
-                        otherRole
-                        .classList
-                        .remove("show");
-
-                        otherRole.value = "";
-
-                    }
-
-                }
-
-
-                updateRoles();
-
-            }
-        );
-
-    }
-);
-
-
-otherRole.addEventListener(
-    "input",
-    updateRoles
-);
+});
 
 
 /* =========================
@@ -2003,145 +1631,143 @@ document.addEventListener(
     function(){
 
         roleMenu
-        .classList
-        .remove("open");
+            .classList
+            .remove("open");
 
         countryMenu
-        .classList
-        .remove("open");
+            .classList
+            .remove("open");
 
     }
 );
 
 
 /* =========================
-   NAME
+   GENERATE CARD
 ========================= */
 
-nameInput.addEventListener(
-    "input",
-    function(){
+function generateCard(){
 
-        document.getElementById(
-            "cardName"
-        ).textContent =
-            this.value.trim()
-            || "Your Name";
+    const name =
+        nameInput.value.trim();
+
+    const xUsername =
+        xInput.value.trim();
+
+    const discord =
+        discordInput.value.trim();
+
+    const gender =
+        genderInput.value;
+
+    const roles =
+        getRoles();
+
+    const country =
+        countryText.dataset.country || "";
+
+    const flag =
+        countryText.dataset.flag || "";
+
+    const og =
+        ogInput.value;
+
+    const since =
+        sinceInput.value;
+
+
+    /* NEW ID */
+
+    dlicomId =
+        createDliComId();
+
+
+    /* NAME */
+
+    document.getElementById(
+        "cardName"
+    ).textContent =
+        name || "Your Name";
+
+
+    /* X */
+
+    let x =
+        xUsername;
+
+    if(
+        x &&
+        !x.startsWith("@")
+    ){
+
+        x = "@" + x;
 
     }
-);
+
+    document.getElementById(
+        "cardX"
+    ).textContent =
+        x || "@username";
 
 
-/* =========================
-   X
-========================= */
+    /* DLICOM ID */
 
-xInput.addEventListener(
-    "input",
-    function(){
-
-        let value =
-            this.value.trim();
+    document.getElementById(
+        "cardId"
+    ).textContent =
+        dlicomId;
 
 
-        if(
-            value &&
-            !value.startsWith("@")
-        ){
+    /* ROLE */
 
-            value =
-                "@" + value;
-
-        }
-
-
-        document.getElementById(
-            "cardX"
-        ).textContent =
-            value ||
-            "@username";
-
-    }
-);
+    document.getElementById(
+        "cardRole"
+    ).textContent =
+        roles.length
+        ? roles.join(" • ")
+        : "—";
 
 
-/* =========================
-   DISCORD
-========================= */
+    /* COUNTRY */
 
-discordInput.addEventListener(
-    "input",
-    function(){
-
-        document.getElementById(
-            "cardDiscord"
-        ).textContent =
-            this.value.trim()
-            || "—";
-
-    }
-);
+    document.getElementById(
+        "cardCountry"
+    ).textContent =
+        country
+        ? flag + " " + country
+        : "—";
 
 
-/* =========================
-   GENDER
-========================= */
+    /* DISCORD */
 
-gender.addEventListener(
-    "change",
-    function(){
-
-        document.getElementById(
-            "cardGender"
-        ).textContent =
-            this.value ||
-            "—";
-
-    }
-);
+    document.getElementById(
+        "cardDiscord"
+    ).textContent =
+        discord || "—";
 
 
-/* =========================
-   OG
-========================= */
+    /* GENDER */
 
-og.addEventListener(
-    "change",
-    function(){
-
-        document.getElementById(
-            "cardOG"
-        ).textContent =
-            this.value ||
-            "—";
-
-    }
-);
+    document.getElementById(
+        "cardGender"
+    ).textContent =
+        gender || "—";
 
 
-/* =========================
-   MEMBER SINCE
-========================= */
+    /* OG */
 
-memberSince.addEventListener(
-    "change",
-    function(){
+    document.getElementById(
+        "cardOG"
+    ).textContent =
+        og || "—";
 
-        if(!this.value){
 
-            document.getElementById(
-                "cardSince"
-            ).textContent =
-                "—";
+    /* MEMBER SINCE */
 
-            return;
-
-        }
-
+    if(since){
 
         const parts =
-            this.value.split("-");
-
+            since.split("-");
 
         const year =
             parts[0];
@@ -2152,9 +1778,7 @@ memberSince.addEventListener(
                 10
             );
 
-
         const months = [
-
             "Jan",
             "Feb",
             "Mar",
@@ -2167,9 +1791,7 @@ memberSince.addEventListener(
             "Oct",
             "Nov",
             "Dec"
-
         ];
-
 
         document.getElementById(
             "cardSince"
@@ -2179,29 +1801,53 @@ memberSince.addEventListener(
             year;
 
     }
+    else{
+
+        document.getElementById(
+            "cardSince"
+        ).textContent =
+            "—";
+
+    }
+
+
+    /* SHOW DOWNLOAD */
+
+    downloadBtn
+        .classList
+        .add("show");
+
+
+    /* BUTTON TEXT */
+
+    generateBtn.textContent =
+        "Generated ✓";
+
+}
+
+
+/* =========================
+   GENERATE BUTTON
+========================= */
+
+generateBtn.addEventListener(
+    "click",
+    generateCard
 );
 
 
 /* =========================
-   DOWNLOAD
+   DOWNLOAD PNG
 ========================= */
 
-document.getElementById(
-    "downloadBtn"
-)
-.addEventListener(
+downloadBtn.addEventListener(
     "click",
     async function(){
 
-        const button =
-            this;
-
-
-        button.textContent =
+        downloadBtn.textContent =
             "Generating...";
 
-
-        button.disabled =
+        downloadBtn.disabled =
             true;
 
 
@@ -2218,43 +1864,40 @@ document.getElementById(
                     card,
                     {
                         scale:3,
-
                         useCORS:true,
-
                         allowTaint:true,
-
-                        backgroundColor:
-                            "#050713",
-
+                        backgroundColor:"#05091c",
                         logging:false,
-
                         imageTimeout:15000
                     }
                 );
 
 
             const link =
-                document.createElement(
-                    "a"
-                );
+                document.createElement("a");
 
 
-            const memberName =
+            let filename =
                 nameInput
-                .value
-                .trim()
-                .replace(
-                    /[^a-z0-9_-]/gi,
-                    "-"
-                );
+                    .value
+                    .trim()
+                    .replace(
+                        /[^a-z0-9_-]/gi,
+                        "-"
+                    );
+
+
+            if(!filename){
+
+                filename =
+                    dlicomId;
+
+            }
 
 
             link.download =
                 "DliCOM-ID-" +
-                (
-                    memberName ||
-                    dlicomId
-                ) +
+                filename +
                 ".png";
 
 
@@ -2278,11 +1921,10 @@ document.getElementById(
         }
 
 
-        button.textContent =
+        downloadBtn.textContent =
             "Download PNG";
 
-
-        button.disabled =
+        downloadBtn.disabled =
             false;
 
     }
