@@ -8,545 +8,440 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    min-height: 100vh;
-    padding: 22px 14px 50px;
-
-    font-family: "Inter", sans-serif;
-
-    color: #fff;
-
+body{
+    min-height:100vh;
+    padding:18px 12px 45px;
+    font-family:Inter,sans-serif;
+    color:#fff;
     background:
         radial-gradient(
             circle at 50% 0%,
-            #172d79 0%,
+            #182d79 0%,
             #070d29 38%,
             #02030c 100%
         );
 }
 
-.container {
-    width: 100%;
-    max-width: 1050px;
-    margin: auto;
+.container{
+    width:100%;
+    max-width:1050px;
+    margin:auto;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 25px;
+.header{
+    text-align:center;
+    margin-bottom:22px;
 }
 
-.header h1 {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(30px, 6vw, 48px);
-    font-weight: 800;
-    letter-spacing: -1px;
+.header h1{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(30px,6vw,48px);
+    font-weight:800;
 }
 
-.header p {
-    margin-top: 7px;
-    color: #9ba9cf;
-    font-size: 14px;
-    font-weight: 700;
+.header p{
+    margin-top:6px;
+    color:#9ba9cf;
+    font-size:14px;
+    font-weight:700;
 }
 
-.form-box {
-    padding: 22px;
-
-    border-radius: 22px;
-
-    background: rgba(7, 14, 40, .92);
-
-    border: 1px solid rgba(86, 121, 255, .35);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.35);
-
-    backdrop-filter: blur(15px);
-
-    margin-bottom: 28px;
+.form-box{
+    padding:20px;
+    border-radius:20px;
+    background:rgba(7,14,40,.94);
+    border:1px solid rgba(86,121,255,.35);
+    box-shadow:0 20px 60px #0007;
 }
 
-.form-title {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 18px;
+.form-title{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:17px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
 }
 
-.field {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
+.full{
+    grid-column:1/-1;
 }
 
-.full {
-    grid-column: 1 / -1;
+.field{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
 }
 
-label {
-    color: #91a8e9;
-
-    font-size: 11px;
-    font-weight: 900;
-
-    text-transform: uppercase;
-    letter-spacing: .8px;
+label{
+    color:#91a8e9;
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.8px;
 }
 
 input,
-select {
-    width: 100%;
-    height: 50px;
-
-    padding: 0 15px;
-
-    border-radius: 12px;
-
-    border: 1px solid #26396e;
-
-    outline: none;
-
-    background: #080f2b;
-    color: #fff;
-
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 800;
-
-    transition: .2s;
+select{
+    width:100%;
+    height:50px;
+    padding:0 14px;
+    border-radius:11px;
+    border:1px solid #26396e;
+    outline:none;
+    background:#080f2b;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    font-size:14px;
+    font-weight:800;
 }
 
-input::placeholder {
-    color: #8793b2;
-    font-weight: 800;
+input::placeholder{
+    color:#8793b2;
+    font-weight:800;
 }
 
 input:focus,
-select:focus {
-    border-color: #507dff;
-
-    box-shadow:
-        0 0 0 3px rgba(80,125,255,.12);
+select:focus{
+    border-color:#507dff;
+    box-shadow:0 0 0 3px #507dff1f;
 }
 
-select option {
-    background: #080f2b;
-    color: #fff;
-    font-weight: 700;
+select option{
+    background:#080f2b;
+    color:#fff;
 }
 
-/* ROLE */
+/* DROPDOWNS */
 
-.role-select {
-    position: relative;
+.role-select,
+.country-select{
+    position:relative;
 }
 
-.role-trigger {
-    width: 100%;
-    height: 50px;
-
-    padding: 0 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    border-radius: 12px;
-
-    border: 1px solid #26396e;
-
-    background: #080f2b;
-    color: #fff;
-
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    text-align: left;
+.role-trigger,
+.country-trigger{
+    width:100%;
+    height:50px;
+    padding:0 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-radius:11px;
+    border:1px solid #26396e;
+    background:#080f2b;
+    color:#fff;
+    font:800 14px Inter,sans-serif;
+    cursor:pointer;
+    text-align:left;
 }
 
-.role-trigger:hover {
-    border-color: #507dff;
+.role-trigger:hover,
+.country-trigger:hover{
+    border-color:#507dff;
 }
 
-.role-menu {
-    display: none;
-
-    position: absolute;
-
-    z-index: 100;
-
-    top: 57px;
-    left: 0;
-    right: 0;
-
-    max-height: 280px;
-
-    overflow-y: auto;
-
-    padding: 8px;
-
-    border-radius: 13px;
-
-    background: #070d25;
-
-    border: 1px solid #30467e;
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.55);
+.role-menu,
+.country-menu{
+    display:none;
+    position:absolute;
+    z-index:100;
+    top:57px;
+    left:0;
+    right:0;
+    max-height:320px;
+    overflow-y:auto;
+    padding:8px;
+    border-radius:13px;
+    background:#070d25;
+    border:1px solid #30467e;
+    box-shadow:0 20px 45px #000a;
 }
 
-.role-menu.show {
-    display: block;
+.role-menu.show,
+.country-menu.show{
+    display:block;
 }
 
-.role-option {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 12px;
-
-    border-radius: 8px;
-
-    color: #fff;
-
-    cursor: pointer;
-
-    font-size: 14px;
-    font-weight: 800;
-
-    text-transform: none;
-    letter-spacing: 0;
+.role-option{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:10px;
+    padding:11px;
+    border-radius:8px;
+    color:#fff;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:800;
+    text-transform:none;
+    letter-spacing:0;
 }
 
-.role-option:hover {
-    background: rgba(65,105,255,.15);
+.role-option:hover{
+    background:#4169ff26;
 }
 
-.role-option input {
-    width: 18px;
-    height: 18px;
+.role-option input{
+    width:18px;
+    height:18px;
+    accent-color:#507dff;
+    cursor:pointer;
+}
 
-    accent-color: #4f7dff;
+.country-search{
+    height:44px!important;
+    margin-bottom:7px;
+}
 
-    cursor: pointer;
+.country-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    width:100%;
+    padding:11px;
+    border-radius:8px;
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.country-item:hover{
+    background:#4169ff26;
+}
+
+.country-flag{
+    width:28px;
+    text-align:center;
+    font-size:20px;
 }
 
 /* BUTTONS */
 
-.buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
+.buttons{
+    display:flex;
+    gap:11px;
+    margin-top:19px;
 }
 
-button {
-    border: 0;
-
-    font-family: "Inter", sans-serif;
-    font-weight: 900;
-
-    cursor: pointer;
-
-    transition: .2s;
+button{
+    border:0;
+    font-family:Inter,sans-serif;
+    font-weight:900;
+    cursor:pointer;
 }
 
-.generate {
-    flex: 1;
-
-    padding: 14px 20px;
-
-    border-radius: 12px;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2f6bff,
-            #5b35ff
-        );
+.generate{
+    flex:1;
+    padding:14px 20px;
+    border-radius:11px;
+    color:#fff;
+    background:linear-gradient(135deg,#2f6bff,#5b35ff);
 }
 
-.generate:hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 10px 30px rgba(47,107,255,.3);
+.download{
+    min-width:155px;
+    padding:14px 20px;
+    border-radius:11px;
+    background:#fff;
+    color:#07102d;
 }
 
-.download {
-    min-width: 160px;
-
-    padding: 14px 20px;
-
-    border-radius: 12px;
-
-    background: #fff;
-
-    color: #07102d;
+.preview-title{
+    margin:25px 0 11px 3px;
+    color:#8191ba;
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
 }
 
 /* CARD */
 
-.preview-title {
-    margin: 0 0 12px 4px;
-
-    color: #8191ba;
-
-    font-size: 12px;
-    font-weight: 900;
-
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
+.card-wrap{
+    width:100%;
+    overflow:hidden;
+    border-radius:20px;
 }
 
-.card-wrap {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 22px;
-}
+.id-card{
+    position:relative;
+    width:100%;
+    aspect-ratio:1536/1024;
+    overflow:hidden;
 
-.id-card {
-    position: relative;
+    border-radius:20px;
 
-    width: 100%;
-
-    aspect-ratio: 1536 / 1024;
-
-    overflow: hidden;
-
-    border-radius: 22px;
-
-    background-image: url("card-bg.png");
-
-    background-size: cover;
-    background-position: center;
+    background:
+        url("card-bg.png")
+        center/cover
+        no-repeat;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.5),
-        0 0 45px rgba(52,91,255,.18);
+        0 25px 70px #0008,
+        0 0 45px #345bff2e;
 }
 
-.card-info {
-    position: absolute;
-
-    left: 5.8%;
-    top: 20%;
-
-    width: 45%;
-
-    z-index: 5;
+.card-info{
+    position:absolute;
+    left:5.8%;
+    top:18%;
+    width:46%;
+    z-index:5;
 }
 
-.brand {
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: clamp(17px, 2.4vw, 34px);
-
-    font-weight: 800;
-
-    margin-bottom: 2px;
+.brand{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(17px,2.4vw,34px);
+    font-weight:800;
 }
 
-.community {
-    color: #7196ff;
-
-    font-size: clamp(7px, .85vw, 12px);
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 8%;
+.community{
+    color:#7196ff;
+    font-size:clamp(7px,.85vw,12px);
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:7%;
 }
 
-.name {
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: clamp(18px, 3vw, 42px);
-
-    font-weight: 800;
-
-    line-height: 1.05;
-
-    margin-bottom: 5px;
-
-    text-shadow:
-        0 3px 15px rgba(0,0,0,.5);
+.name{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(18px,3vw,42px);
+    font-weight:800;
+    line-height:1.05;
+    margin-bottom:5px;
+    text-shadow:0 3px 15px #0008;
 }
 
-.xname {
-    color: #91a9ed;
-
-    font-size: clamp(9px, 1.2vw, 16px);
-
-    font-weight: 700;
-
-    margin-bottom: 6%;
+.xname{
+    color:#91a9ed;
+    font-size:clamp(9px,1.2vw,16px);
+    font-weight:700;
+    margin-bottom:5%;
 }
 
-.details {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 10px 18px;
+.details{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px 18px;
 }
 
-.detail-label {
-    display: block;
-
-    color: #6d93ff;
-
-    font-size: clamp(6px, .7vw, 10px);
-
-    font-weight: 900;
-
-    letter-spacing: 1.3px;
-
-    margin-bottom: 3px;
+.detail-label{
+    display:block;
+    color:#6d93ff;
+    font-size:clamp(6px,.7vw,10px);
+    font-weight:900;
+    letter-spacing:1.2px;
+    margin-bottom:3px;
 }
 
-.detail-value {
-    display: block;
-
-    color: #fff;
-
-    font-size: clamp(8px, .95vw, 14px);
-
-    font-weight: 800;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+.detail-value{
+    display:block;
+    color:#fff;
+    font-size:clamp(8px,.95vw,14px);
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-.id-line {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    margin-top: 7%;
-
-    padding: 7px 11px;
-
-    border-radius: 8px;
-
-    background: rgba(4,10,35,.72);
-
-    border: 1px solid rgba(105,140,255,.3);
+.id-line{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:6%;
+    padding:7px 11px;
+    border-radius:8px;
+    background:#040a23b8;
+    border:1px solid #698cff4d;
 }
 
-.id-label {
-    color: #7798ff;
-
-    font-size: clamp(6px, .7vw, 10px);
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
+.id-label{
+    color:#7798ff;
+    font-size:clamp(6px,.7vw,10px);
+    font-weight:900;
+    letter-spacing:1px;
 }
 
-.id-value {
-    color: #fff;
-
-    font-size: clamp(7px, .85vw, 12px);
-
-    font-weight: 900;
+.id-value{
+    color:#fff;
+    font-size:clamp(7px,.85vw,12px);
+    font-weight:900;
 }
 
-.footer {
-    position: absolute;
-
-    left: 5.8%;
-    bottom: 5.5%;
-
-    color: rgba(255,255,255,.9);
-
-    font-size: clamp(7px, .8vw, 12px);
-
-    font-weight: 800;
+.footer{
+    position:absolute;
+    left:5.8%;
+    bottom:5.5%;
+    font-size:clamp(7px,.8vw,12px);
+    font-weight:800;
 }
 
-.footer-right {
-    position: absolute;
-
-    right: 5.8%;
-    bottom: 5.5%;
-
-    color: rgba(255,255,255,.75);
-
-    font-size: clamp(7px, .8vw, 12px);
-
-    font-weight: 800;
+.footer-right{
+    position:absolute;
+    right:5.8%;
+    bottom:5.5%;
+    color:#ffffffbf;
+    font-size:clamp(7px,.8vw,12px);
+    font-weight:800;
 }
 
-@media (max-width: 650px) {
+/* MOBILE */
 
-    body {
-        padding: 15px 10px 35px;
+@media(max-width:650px){
+
+    body{
+        padding:14px 9px 35px;
     }
 
-    .form-box {
-        padding: 16px;
-        border-radius: 18px;
+    .form-box{
+        padding:15px;
+        border-radius:17px;
     }
 
-    .grid {
-        grid-template-columns: 1fr;
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    .full {
-        grid-column: auto;
+    .full{
+        grid-column:auto;
     }
 
-    .buttons {
-        flex-direction: column;
+    .buttons{
+        flex-direction:column;
     }
 
-    .download {
-        width: 100%;
+    .download{
+        width:100%;
     }
 
     .card-wrap,
-    .id-card {
-        border-radius: 14px;
+    .id-card{
+        border-radius:13px;
     }
 }
 
 </style>
 </head>
+
 
 <body>
 
@@ -556,7 +451,9 @@ button {
 
         <h1>DliCOM ID Card</h1>
 
-        <p>Create your DliCOM Community Identity</p>
+        <p>
+            Create your DliCOM Community Identity
+        </p>
 
     </div>
 
@@ -567,11 +464,17 @@ button {
             Create your card
         </div>
 
+
         <div class="grid">
+
+
+            <!-- NAME -->
 
             <div class="field full">
 
-                <label>Full Name</label>
+                <label>
+                    Full Name
+                </label>
 
                 <input
                     id="name"
@@ -582,9 +485,13 @@ button {
             </div>
 
 
+            <!-- X USERNAME -->
+
             <div class="field">
 
-                <label>X Username</label>
+                <label>
+                    X Username
+                </label>
 
                 <input
                     id="xusername"
@@ -595,9 +502,13 @@ button {
             </div>
 
 
+            <!-- DISCORD -->
+
             <div class="field">
 
-                <label>Discord Username</label>
+                <label>
+                    Discord Username
+                </label>
 
                 <input
                     id="discord"
@@ -608,19 +519,29 @@ button {
             </div>
 
 
+            <!-- GENDER -->
+
             <div class="field">
 
-                <label>Gender</label>
+                <label>
+                    Gender
+                </label>
 
                 <select id="gender">
 
-                    <option value="">𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭</option>
+                    <option value="">
+                        𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
+                    </option>
 
-                    <option value="Male">Male</option>
+                    <option>
+                        Male
+                    </option>
 
-                    <option value="Female">Female</option>
+                    <option>
+                        Female
+                    </option>
 
-                    <option value="Prefer not to say">
+                    <option>
                         Prefer not to say
                     </option>
 
@@ -629,11 +550,17 @@ button {
             </div>
 
 
+            <!-- ROLE -->
+
             <div class="field">
 
-                <label>Roles</label>
+                <label>
+                    Roles
+                </label>
+
 
                 <div class="role-select">
+
 
                     <button
                         type="button"
@@ -645,7 +572,9 @@ button {
                             𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
                         </span>
 
-                        <span>▼</span>
+                        <span>
+                            ▼
+                        </span>
 
                     </button>
 
@@ -655,40 +584,72 @@ button {
                         id="roleMenu"
                     >
 
+
                         <label class="role-option">
                             <input type="checkbox" value="Dliever">
                             <span>Dliever</span>
                         </label>
+
 
                         <label class="role-option">
                             <input type="checkbox" value="Dcoded">
                             <span>Dcoded</span>
                         </label>
 
+
                         <label class="role-option">
                             <input type="checkbox" value="DCO">
                             <span>DCO</span>
                         </label>
+
 
                         <label class="role-option">
                             <input type="checkbox" value="Regional Helper">
                             <span>Regional Helper</span>
                         </label>
 
+
                         <label class="role-option">
                             <input type="checkbox" value="Regional Lead">
                             <span>Regional Lead</span>
                         </label>
+
 
                         <label class="role-option">
                             <input type="checkbox" value="MOD">
                             <span>MOD</span>
                         </label>
 
+
                         <label class="role-option">
                             <input type="checkbox" value="Team">
                             <span>Team</span>
                         </label>
+
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Scout">
+                            <span>Scout</span>
+                        </label>
+
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Access">
+                            <span>Access</span>
+                        </label>
+
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Moai">
+                            <span>Moai</span>
+                        </label>
+
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Other">
+                            <span>Other</span>
+                        </label>
+
 
                     </div>
 
@@ -697,24 +658,65 @@ button {
             </div>
 
 
+            <!-- COUNTRY -->
+
             <div class="field">
 
-                <label>Country</label>
+                <label>
+                    Country
+                </label>
 
-                <select id="country">
 
-                    <option value="">
-                        𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
-                    </option>
+                <div class="country-select">
 
-                </select>
+
+                    <button
+                        type="button"
+                        class="country-trigger"
+                        onclick="toggleCountries()"
+                    >
+
+                        <span id="countryPlaceholder">
+                            𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
+                        </span>
+
+                        <span>
+                            ▼
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="country-menu"
+                        id="countryMenu"
+                    >
+
+                        <input
+                            id="countrySearch"
+                            class="country-search"
+                            type="text"
+                            placeholder="𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭"
+                            oninput="filterCountries()"
+                        >
+
+
+                        <div id="countryList"></div>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
+            <!-- OG -->
+
             <div class="field">
 
-                <label>OG Member</label>
+                <label>
+                    OG Member
+                </label>
 
                 <select id="og">
 
@@ -722,18 +724,26 @@ button {
                         𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
                     </option>
 
-                    <option value="Yes">Yes</option>
+                    <option>
+                        Yes
+                    </option>
 
-                    <option value="No">No</option>
+                    <option>
+                        No
+                    </option>
 
                 </select>
 
             </div>
 
 
+            <!-- MEMBER SINCE -->
+
             <div class="field">
 
-                <label>Member Since</label>
+                <label>
+                    Member Since
+                </label>
 
                 <input
                     id="memberSince"
@@ -741,6 +751,7 @@ button {
                 >
 
             </div>
+
 
         </div>
 
@@ -753,6 +764,7 @@ button {
             >
                 Generate Card
             </button>
+
 
             <button
                 class="download"
@@ -771,6 +783,8 @@ button {
     </div>
 
 
+    <!-- CARD -->
+
     <div class="card-wrap">
 
         <div
@@ -778,15 +792,19 @@ button {
             id="idCard"
         >
 
+
             <div class="card-info">
+
 
                 <div class="brand">
                     DliCOM
                 </div>
 
+
                 <div class="community">
                     COMMUNITY ID
                 </div>
+
 
                 <div
                     class="name"
@@ -794,6 +812,7 @@ button {
                 >
                     Your Name
                 </div>
+
 
                 <div
                     class="xname"
@@ -806,7 +825,7 @@ button {
                 <div class="details">
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             ROLE
@@ -822,7 +841,7 @@ button {
                     </div>
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             REGION
@@ -838,7 +857,7 @@ button {
                     </div>
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             DISCORD
@@ -854,7 +873,7 @@ button {
                     </div>
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             GENDER
@@ -870,7 +889,7 @@ button {
                     </div>
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             OG MEMBER
@@ -886,7 +905,7 @@ button {
                     </div>
 
 
-                    <div class="detail">
+                    <div>
 
                         <span class="detail-label">
                             MEMBER SINCE
@@ -901,6 +920,7 @@ button {
 
                     </div>
 
+
                 </div>
 
 
@@ -913,11 +933,10 @@ button {
                     <span
                         class="id-value"
                         id="cardId"
-                    >
-                        DLC-000000
-                    </span>
+                    ></span>
 
                 </div>
+
 
             </div>
 
@@ -926,9 +945,11 @@ button {
                 Official DliCOM Community Member
             </div>
 
+
             <div class="footer-right">
                 dlicom.app
             </div>
+
 
         </div>
 
@@ -939,9 +960,11 @@ button {
 
 <script>
 
-/* =========================================
-   ALL 195 COUNTRIES
-========================================= */
+
+/* =========================
+   COUNTRIES
+========================= */
+
 
 const countries = [
 
@@ -956,6 +979,7 @@ const countries = [
 ["Australia","AU"],
 ["Austria","AT"],
 ["Azerbaijan","AZ"],
+
 ["Bahamas","BS"],
 ["Bahrain","BH"],
 ["Bangladesh","BD"],
@@ -973,6 +997,7 @@ const countries = [
 ["Bulgaria","BG"],
 ["Burkina Faso","BF"],
 ["Burundi","BI"],
+
 ["Cabo Verde","CV"],
 ["Cambodia","KH"],
 ["Cameroon","CM"],
@@ -989,11 +1014,13 @@ const countries = [
 ["Cuba","CU"],
 ["Cyprus","CY"],
 ["Czechia","CZ"],
+
 ["Democratic Republic of the Congo","CD"],
 ["Denmark","DK"],
 ["Djibouti","DJ"],
 ["Dominica","DM"],
 ["Dominican Republic","DO"],
+
 ["Ecuador","EC"],
 ["Egypt","EG"],
 ["El Salvador","SV"],
@@ -1002,9 +1029,11 @@ const countries = [
 ["Estonia","EE"],
 ["Eswatini","SZ"],
 ["Ethiopia","ET"],
+
 ["Fiji","FJ"],
 ["Finland","FI"],
 ["France","FR"],
+
 ["Gabon","GA"],
 ["Gambia","GM"],
 ["Georgia","GE"],
@@ -1016,9 +1045,11 @@ const countries = [
 ["Guinea","GN"],
 ["Guinea-Bissau","GW"],
 ["Guyana","GY"],
+
 ["Haiti","HT"],
 ["Honduras","HN"],
 ["Hungary","HU"],
+
 ["Iceland","IS"],
 ["India","IN"],
 ["Indonesia","ID"],
@@ -1027,14 +1058,17 @@ const countries = [
 ["Ireland","IE"],
 ["Israel","IL"],
 ["Italy","IT"],
+
 ["Jamaica","JM"],
 ["Japan","JP"],
 ["Jordan","JO"],
+
 ["Kazakhstan","KZ"],
 ["Kenya","KE"],
 ["Kiribati","KI"],
 ["Kuwait","KW"],
 ["Kyrgyzstan","KG"],
+
 ["Laos","LA"],
 ["Latvia","LV"],
 ["Lebanon","LB"],
@@ -1044,6 +1078,7 @@ const countries = [
 ["Liechtenstein","LI"],
 ["Lithuania","LT"],
 ["Luxembourg","LU"],
+
 ["Madagascar","MG"],
 ["Malawi","MW"],
 ["Malaysia","MY"],
@@ -1062,6 +1097,7 @@ const countries = [
 ["Morocco","MA"],
 ["Mozambique","MZ"],
 ["Myanmar","MM"],
+
 ["Namibia","NA"],
 ["Nauru","NR"],
 ["Nepal","NP"],
@@ -1073,7 +1109,9 @@ const countries = [
 ["North Korea","KP"],
 ["North Macedonia","MK"],
 ["Norway","NO"],
+
 ["Oman","OM"],
+
 ["Pakistan","PK"],
 ["Palau","PW"],
 ["Palestine","PS"],
@@ -1084,10 +1122,13 @@ const countries = [
 ["Philippines","PH"],
 ["Poland","PL"],
 ["Portugal","PT"],
+
 ["Qatar","QA"],
+
 ["Romania","RO"],
 ["Russia","RU"],
 ["Rwanda","RW"],
+
 ["Saint Kitts and Nevis","KN"],
 ["Saint Lucia","LC"],
 ["Saint Vincent and the Grenadines","VC"],
@@ -1114,6 +1155,560 @@ const countries = [
 ["Sweden","SE"],
 ["Switzerland","CH"],
 ["Syria","SY"],
+
 ["Tajikistan","TJ"],
 ["Tanzania","TZ"],
-["Thailand","T
+["Thailand","TH"],
+["Timor-Leste","TL"],
+["Togo","TG"],
+["Tonga","TO"],
+["Trinidad and Tobago","TT"],
+["Tunisia","TN"],
+["Turkey","TR"],
+["Turkmenistan","TM"],
+["Tuvalu","TV"],
+
+["Uganda","UG"],
+["Ukraine","UA"],
+["United Arab Emirates","AE"],
+["United Kingdom","GB"],
+["United States","US"],
+["Uruguay","UY"],
+["Uzbekistan","UZ"],
+
+["Vanuatu","VU"],
+["Vatican City","VA"],
+["Venezuela","VE"],
+["Vietnam","VN"],
+
+["Yemen","YE"],
+
+["Zambia","ZM"],
+["Zimbabwe","ZW"]
+
+];
+
+
+/* =========================
+   FLAG
+========================= */
+
+function flag(code){
+
+    return code
+        .toUpperCase()
+        .split("")
+        .map(
+            c =>
+            String.fromCodePoint(
+                127397 + c.charCodeAt(0)
+            )
+        )
+        .join("");
+
+}
+
+
+/* =========================
+   COUNTRY DROPDOWN
+========================= */
+
+let selectedCountry = "";
+
+const countryList =
+    document.getElementById("countryList");
+
+const countryPlaceholder =
+    document.getElementById("countryPlaceholder");
+
+
+function loadCountries(list = countries){
+
+    countryList.innerHTML = "";
+
+    list.forEach(country => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "country-item";
+
+        item.innerHTML = `
+
+            <span class="country-flag">
+                ${flag(country[1])}
+            </span>
+
+            <span>
+                ${country[0]}
+            </span>
+
+        `;
+
+
+        item.onclick = () => {
+
+            selectedCountry =
+                country[0];
+
+            countryPlaceholder.textContent =
+                flag(country[1]) +
+                " " +
+                country[0];
+
+            document
+                .getElementById("countryMenu")
+                .classList
+                .remove("show");
+
+            document
+                .getElementById("countrySearch")
+                .value = "";
+
+        };
+
+
+        countryList.appendChild(item);
+
+    });
+
+}
+
+
+function toggleCountries(){
+
+    document
+        .getElementById("countryMenu")
+        .classList
+        .toggle("show");
+
+}
+
+
+function filterCountries(){
+
+    const query =
+        document
+        .getElementById("countrySearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    loadCountries(
+
+        countries.filter(
+            country =>
+            country[0]
+            .toLowerCase()
+            .includes(query)
+        )
+
+    );
+
+}
+
+
+loadCountries();
+
+
+/* =========================
+   ROLE DROPDOWN
+========================= */
+
+function toggleRoles(){
+
+    document
+        .getElementById("roleMenu")
+        .classList
+        .toggle("show");
+
+}
+
+
+function getSelectedRoles(){
+
+    return [
+
+        ...document.querySelectorAll(
+            '#roleMenu input[type="checkbox"]:checked'
+        )
+
+    ].map(
+        checkbox =>
+        checkbox.value
+    );
+
+}
+
+
+document
+.querySelectorAll(
+    '#roleMenu input[type="checkbox"]'
+)
+.forEach(box => {
+
+    box.addEventListener(
+        "change",
+        () => {
+
+            const roles =
+                getSelectedRoles();
+
+
+            document
+            .getElementById("rolePlaceholder")
+            .textContent =
+
+                roles.length
+                ? roles.join(" • ")
+                : "𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭";
+
+        }
+    );
+
+});
+
+
+/* =========================
+   CLOSE DROPDOWN
+========================= */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if(
+            !document
+            .querySelector(".role-select")
+            .contains(event.target)
+        ){
+
+            document
+            .getElementById("roleMenu")
+            .classList
+            .remove("show");
+
+        }
+
+
+        if(
+            !document
+            .querySelector(".country-select")
+            .contains(event.target)
+        ){
+
+            document
+            .getElementById("countryMenu")
+            .classList
+            .remove("show");
+
+        }
+
+    }
+);
+
+
+/* =========================
+   AUTO DLICOM ID
+========================= */
+
+function createDliComId(){
+
+    let id =
+        localStorage.getItem(
+            "dlicom_id"
+        );
+
+
+    if(id){
+
+        return id;
+
+    }
+
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+    let random =
+        "";
+
+
+    for(
+        let i = 0;
+        i < 6;
+        i++
+    ){
+
+        random +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+
+    }
+
+
+    id =
+        "DLC-" +
+        random;
+
+
+    localStorage.setItem(
+        "dlicom_id",
+        id
+    );
+
+
+    return id;
+
+}
+
+
+const dlicomId =
+    createDliComId();
+
+
+document
+.getElementById("cardId")
+.textContent =
+    dlicomId;
+
+
+/* =========================
+   UPDATE CARD
+========================= */
+
+function updateCard(){
+
+    const name =
+        document
+        .getElementById("name")
+        .value
+        .trim();
+
+
+    const x =
+        document
+        .getElementById("xusername")
+        .value
+        .trim();
+
+
+    const discord =
+        document
+        .getElementById("discord")
+        .value
+        .trim();
+
+
+    const gender =
+        document
+        .getElementById("gender")
+        .value;
+
+
+    const roles =
+        getSelectedRoles();
+
+
+    const og =
+        document
+        .getElementById("og")
+        .value;
+
+
+    const since =
+        document
+        .getElementById("memberSince")
+        .value;
+
+
+    /* NAME */
+
+    document
+    .getElementById("cardName")
+    .textContent =
+        name || "Your Name";
+
+
+    /* X */
+
+    document
+    .getElementById("cardX")
+    .textContent =
+
+        x
+        ? (
+            x.startsWith("@")
+            ? x
+            : "@" + x
+        )
+        : "@username";
+
+
+    /* DISCORD */
+
+    document
+    .getElementById("cardDiscord")
+    .textContent =
+        discord || "—";
+
+
+    /* GENDER */
+
+    document
+    .getElementById("cardGender")
+    .textContent =
+        gender || "—";
+
+
+    /* ROLE */
+
+    document
+    .getElementById("cardRole")
+    .textContent =
+
+        roles.length
+        ? roles.join(" • ")
+        : "—";
+
+
+    /* OG */
+
+    document
+    .getElementById("cardOG")
+    .textContent =
+        og || "—";
+
+
+    /* ID */
+
+    document
+    .getElementById("cardId")
+    .textContent =
+        dlicomId;
+
+
+    /* COUNTRY */
+
+    if(selectedCountry){
+
+        const found =
+            countries.find(
+                country =>
+                country[0] ===
+                selectedCountry
+            );
+
+
+        document
+        .getElementById("cardCountry")
+        .textContent =
+
+            found
+            ? flag(found[1]) +
+              " " +
+              selectedCountry
+            : selectedCountry;
+
+    }
+    else{
+
+        document
+        .getElementById("cardCountry")
+        .textContent =
+            "—";
+
+    }
+
+
+    /* MEMBER SINCE */
+
+    if(since){
+
+        const date =
+            new Date(
+                since + "-01"
+            );
+
+
+        document
+        .getElementById("cardSince")
+        .textContent =
+
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    month:"short",
+                    year:"numeric"
+                }
+            );
+
+    }
+    else{
+
+        document
+        .getElementById("cardSince")
+        .textContent =
+            "—";
+
+    }
+
+}
+
+
+/* =========================
+   DOWNLOAD PNG
+========================= */
+
+async function downloadCard(){
+
+    updateCard();
+
+
+    const card =
+        document
+        .getElementById("idCard");
+
+
+    const canvas =
+        await html2canvas(
+            card,
+            {
+                scale:3,
+                useCORS:true,
+                backgroundColor:null,
+                logging:false
+            }
+        );
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.download =
+        dlicomId +
+        "-DliCOM-ID.png";
+
+
+    link.href =
+        canvas.toDataURL(
+            "image/png"
+        );
+
+
+    link.click();
+
+}
+
+</script>
+
+</body>
+</html>
