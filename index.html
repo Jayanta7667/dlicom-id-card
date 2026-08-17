@@ -1,505 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DliCOM ID Card Maker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DliCOM ID Card Maker</title>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #050817;
-  color: #fff;
-  padding: 20px 14px 40px;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #030616;
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 20px 14px 50px;
+    }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-}
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+    }
 
-.header {
-  text-align: center;
-  margin-bottom: 25px;
-}
+    .header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
 
-.logo {
-  font-size: 34px;
-  font-weight: 800;
-  color: #fff;
-}
+    .brand {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
 
-.logo span {
-  color: #2f6bff;
-}
+    .brand span {
+      color: #2f6bff;
+    }
 
-.subtitle {
-  color: #8fa7d9;
-  margin-top: 6px;
-}
+    .subtitle {
+      margin-top: 5px;
+      color: #8fa7d9;
+      font-size: 14px;
+    }
 
-.editor {
-  background: #0b1228;
-  border: 1px solid #17295c;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 25px;
-}
+    /* FORM */
 
-label {
-  display: block;
-  color: #8fa7d9;
-  font-size: 13px;
-  margin-bottom: 7px;
-}
+    .editor {
+      background: #091126;
+      border: 1px solid #1c3470;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+    }
 
-input,
-select {
-  width: 100%;
-  padding: 13px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: 1px solid #263d7a;
-  background: #060b1d;
-  color: white;
-  font-size: 15px;
-  outline: none;
-}
+    .field {
+      margin-bottom: 15px;
+    }
 
-input:focus,
-select:focus {
-  border-color: #2f6bff;
-}
+    label {
+      display: block;
+      color: #8fa7d9;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
 
-.og-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  color: white;
-}
+    input,
+    select {
+      width: 100%;
+      height: 48px;
+      border-radius: 11px;
+      border: 1px solid #263d7a;
+      background: #050a19;
+      color: #ffffff;
+      padding: 0 13px;
+      font-size: 15px;
+      outline: none;
+    }
 
-.og-row input {
-  width: 22px;
-  height: 22px;
-  margin: 0;
-}
+    input:focus,
+    select:focus {
+      border-color: #2f6bff;
+      box-shadow: 0 0 0 2px rgba(47,107,255,.15);
+    }
 
-button {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 11px;
-  background: #2f6bff;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    select option {
+      background: #050a19;
+      color: white;
+    }
 
-button:hover {
-  background: #1d49c9;
-}
+    #customRole {
+      display: none;
+      margin-top: 9px;
+    }
 
-.card-wrap {
-  display: flex;
-  justify-content: center;
-}
+    .og-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #050a19;
+      border: 1px solid #263d7a;
+      border-radius: 11px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
 
-.card {
-  width: 100%;
-  max-width: 700px;
-  aspect-ratio: 1.6 / 1;
-  position: relative;
-  overflow: hidden;
-  border-radius: 24px;
-  padding: 30px;
-  background:
-    radial-gradient(circle at 80% 45%, rgba(47,107,255,.28), transparent 30%),
-    linear-gradient(135deg, #07102b, #030616);
-  border: 2px solid #2f6bff;
-  box-shadow: 0 0 35px rgba(47,107,255,.25);
-}
+    .og-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-.card::before {
-  content: "";
-  position: absolute;
-  width: 450px;
-  height: 450px;
-  border: 1px solid rgba(47,107,255,.18);
-  border-radius: 50%;
-  right: -150px;
-  top: -100px;
-}
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
 
-.card-top {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .switch input {
+      display: none;
+    }
 
-.card-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: #2f6bff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 22px;
-}
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #26324f;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: .2s;
+    }
 
-.card-brand {
-  font-size: 22px;
-  font-weight: 800;
-}
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: .2s;
+    }
 
-.card-title {
-  color: #5e8dff;
-  font-size: 11px;
-  letter-spacing: 3px;
-  margin-top: 3px;
-}
+    .switch input:checked + .slider {
+      background: #2f6bff;
+    }
 
-.card-content {
-  position: relative;
-  z-index: 2;
-  margin-top: 30px;
-}
+    .switch input:checked + .slider:before {
+      transform: translateX(22px);
+    }
 
-.name {
-  font-size: 28px;
-  font-weight: 800;
-}
+    .preview-btn,
+    .download-btn {
+      width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 11px;
+      background: #2f6bff;
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
 
-.username {
-  color: #5e8dff;
-  margin-top: 5px;
-  font-size: 16px;
-}
+    .preview-btn:hover,
+    .download-btn:hover {
+      background: #1d49c9;
+    }
 
-.info {
-  margin-top: 25px;
-  display: grid;
-  gap: 9px;
-  width: 55%;
-}
+    /* CARD */
 
-.info-row {
-  display: flex;
-  gap: 10px;
-  font-size: 14px;
-}
+    .preview-title {
+      text-align: center;
+      color: #8fa7d9;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
 
-.info-label {
-  color: #5e8dff;
-  width: 80px;
-}
+    .card-area {
+      width: 100%;
+      overflow-x: auto;
+      padding: 5px 0 12px;
+    }
 
-.info-value {
-  font-weight: 600;
-}
+    .card {
+      width: 760px;
+      height: 475px;
+      max-width: 100%;
+      margin: auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(
+          circle at 82% 45%,
+          rgba(47,107,255,.32),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(94,141,255,.12),
+          transparent 30%
+        ),
+        linear-gradient(135deg, #07102b, #020512);
 
-.mascot {
-  position: absolute;
-  right: 25px;
-  bottom: 15px;
-  width: 42%;
-  max-height: 75%;
-  object-fit: contain;
-  z-index: 2;
-}
+      border: 2px solid #2f6bff;
+      box-shadow:
+        0 0 35px rgba(47,107,255,.25),
+        inset 0 0 40px rgba(47,107,255,.05);
+    }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px 25px;
-  background: #1d49c9;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  z-index: 3;
-}
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 470px;
+      height: 470px;
+      right: -170px;
+      top: -80px;
+      border: 1px solid rgba(47,107,255,.18);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 35px rgba(47,107,255,.025),
+        0 0 0 75px rgba(47,107,255,.018);
+    }
 
-.actions {
-  margin-top: 18px;
-}
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 1px;
+      background: rgba(47,107,255,.25);
+      right: 20px;
+      bottom: 110px;
+      transform: rotate(-15deg);
+    }
 
-@media(max-width:600px) {
+    /* CARD HEADER */
 
-  body {
-    padding: 12px 10px 30px;
-  }
+    .card-header {
+      position: absolute;
+      left: 32px;
+      top: 28px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-  .card {
-    padding: 18px;
-    border-radius: 18px;
-  }
+    .d-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(
+        145deg,
+        #5e8dff,
+        #1d49c9
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      font-weight: 900;
+      box-shadow: 0 8px 25px rgba(47,107,255,.35);
+    }
 
-  .card-logo {
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
-  }
+    .card-brand {
+      font-size: 25px;
+      font-weight: 900;
+    }
 
-  .card-brand {
-    font-size: 17px;
-  }
+    .card-subtitle {
+      margin-top: 3px;
+      color: #5e8dff;
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: 700;
+    }
 
-  .card-title {
-    font-size: 8px;
-  }
+    /* CARD INFORMATION */
 
-  .card-content {
-    margin-top: 22px;
-  }
+    .card-info {
+      position: absolute;
+      left: 32px;
+      top: 125px;
+      width: 47%;
+      z-index: 5;
+    }
 
-  .name {
-    font-size: 19px;
-  }
+    .card-name {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.1;
+      word-break: break-word;
+    }
 
-  .username {
-    font-size: 11px;
-  }
+    .card-username {
+      color: #5e8dff;
+      font-size: 16px;
+      margin-top: 7px;
+      word-break: break-word;
+    }
 
-  .info {
-    margin-top: 15px;
-    width: 58%;
-    gap: 6px;
-  }
+    .line {
+      width: 100%;
+      height: 1px;
+      background: rgba(94,141,255,.45);
+      margin: 22px 0 17px;
+    }
 
-  .info-row {
-    font-size: 10px;
-  }
+    .info-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 13px;
+      font-size: 15px;
+    }
 
-  .info-label {
-    width: 55px;
-  }
+    .info-label {
+      width: 105px;
+      color: #5e8dff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
 
-  .mascot {
-    right: 5px;
-    bottom: 18px;
-    width: 43%;
-  }
+    .info-value {
+      font-weight: 700;
+      word-break: break-word;
+    }
 
-  .footer {
-    padding: 8px 12px;
-    font-size: 8px;
-  }
-}
-</style>
+    /* MASCOT */
+
+    .mascot {
+      position: absolute;
+      right: 18px;
+      bottom: 57px;
+      width: 45%;
+      height: 68%;
+      object-fit: contain;
+      object-position: center;
+      z-index: 4;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,.45));
+    }
+
+    /* FOOTER */
+
+    .card-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 55px;
+      background: linear-gradient(
+        90deg,
+        #1d49c9,
+        #2f6bff
+      );
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 8;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer-right {
+      opacity: .95;
+    }
+
+    /* DOWNLOAD */
+
+    .download-area {
+      margin-top: 16px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 12px 10px 35px;
+      }
+
+      .brand {
+        font-size: 27px;
+      }
+
+      .editor {
+        padding: 15px;
+      }
+
+      .card {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1.6 / 1;
+        border-radius: 18px;
+      }
+
+      .card-header {
+        left: 16px;
+        top: 16px;
+        gap: 8px;
+      }
+
+      .d-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 19px;
+      }
+
+      .card-brand {
+        font-size: 17px;
+      }
+
+      .card-subtitle {
+        font-size: 7px;
+        letter-spacing: 2px;
+      }
+
+      .card-info {
+        left: 16px;
+        top: 85px;
+        width: 51%;
+      }
+
+      .card-name {
+        font-size: 18px;
+      }
+
+      .card-username {
+        font-size: 10px;
+        margin-top: 4px;
+      }
+
+      .line {
+        margin: 12px 0 10px;
+      }
+
+      .info-row {
+        margin-bottom: 7px;
+        font-size: 9px;
+      }
+
+      .info-label {
+        width: 58px;
+        font-size: 7px;
+      }
+
+      .mascot {
+        right: 5px;
+        bottom: 38px;
+        width: 47%;
+        height: 66%;
+      }
+
+      .card-footer {
+        height: 30px;
+        padding: 0 12px;
+        font-size: 7px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="header">
-    <div class="logo">Dli<span>COM</span></div>
-    <div class="subtitle">Community ID Card Maker</div>
-  </div>
-
-  <div class="editor">
-
-    <label>Name</label>
-    <input id="name" placeholder="Enter your name">
-
-    <label>Username</label>
-    <input id="username" placeholder="@username">
-
-    <label>Role</label>
-    <select id="role">
-      <option>Dliever</option>
-      <option>Dcoded</option>
-      <option>DCO</option>
-      <option>Regional Helper</option>
-      <option>Regional Lead</option>
-      <option>MOD</option>
-      <option>OG</option>
-      <option>Custom Role</option>
-    </select>
-
-    <input id="customRole"
-           placeholder="Enter custom role"
-           style="display:none;">
-
-    <label>Region</label>
-    <input id="region" placeholder="India">
-
-    <div class="og-row">
-      <span>OG Member</span>
-      <input type="checkbox" id="og">
-    </div>
-
-    <button onclick="updateCard()">Preview Card</button>
-
-  </div>
-
-  <div class="card-wrap">
-
-    <div class="card" id="idCard">
-
-      <div class="card-top">
-        <div class="card-logo">D</div>
-
-        <div>
-          <div class="card-brand">DliCOM</div>
-          <div class="card-title">COMMUNITY ID</div>
-        </div>
+    <div class="header">
+      <div class="brand">
+        Dli<span>COM</span>
       </div>
 
-      <div class="card-content">
+      <div class="subtitle">
+        Community ID Card Maker
+      </div>
+    </div>
 
-        <div class="name" id="cardName">
-          Your Name
+
+    <!-- EDITOR -->
+
+    <div class="editor">
+
+      <div class="field">
+        <label>Name</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+        >
+      </div>
+
+
+      <div class="field">
+        <label>Username</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="@username"
+        >
+      </div>
+
+
+      <div class="field">
+
+        <label>Role</label>
+
+        <select id="role">
+
+          <option value="Dliever">
+            Dliever
+          </option>
+
+          <option value="Dcoded">
+            Dcoded
+          </option>
+
+          <option value="DCO">
+            DCO
+          </option>
+
+          <option value="Regional Helper">
+            Regional Helper
+          </option>
+
+          <option value="Regional Lead">
+            Regional Lead
+          </option>
+
+          <option value="MOD">
+            MOD
+          </option>
+
+          <option value="OG">
+            OG
+          </option>
+
+          <option value="Custom Role">
+            Custom Role
+          </option>
+
+        </select>
+
+
+        <input
+          id="customRole"
+          type="text"
+          placeholder="Enter your custom role"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Region</label>
+
+        <input
+          id="region"
+          type="text"
+          placeholder="India"
+        >
+
+      </div>
+
+
+      <div class="og-box">
+
+        <div class="og-text">
+          OG Member
         </div>
 
-        <div class="username" id="cardUsername">
-          @username
+        <label class="switch">
+
+          <input
+            id="og"
+            type="checkbox"
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <button
+        class="preview-btn"
+        onclick="updateCard()"
+      >
+        Preview Card
+      </button>
+
+    </div>
+
+
+    <!-- CARD -->
+
+    <div class="preview-title">
+      Your DliCOM Community ID
+    </div>
+
+
+    <div class="card-area">
+
+      <div
+        class="card"
+        id="idCard"
+      >
+
+        <div class="card-header">
+
+          <div class="d-mark">
+            D
+          </div>
+
+          <div>
+
+            <div class="card-brand">
+              DliCOM
+            </div>
+
+            <div class="card-subtitle">
+              COMMUNITY ID
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="info">
+
+        <div class="card-info">
+
+          <div
+            class="card-name"
+            id="cardName"
+          >
+            Your Name
+          </div>
+
+
+          <div
+            class="card-username"
+            id="cardUsername"
+          >
+            @username
+          </div>
+
+
+          <div class="line"></div>
+
 
           <div class="info-row">
-            <div class="info-label">ROLE</div>
-            <div class="info-value" id="cardRole">
+
+            <div class="info-label">
+              ROLE
+            </div>
+
+            <div
+              class="info-value"
+              id="cardRole"
+            >
               Dliever
             </div>
+
           </div>
+
 
           <div class="info-row">
-            <div class="info-label">REGION</div>
-            <div class="info-value" id="cardRegion">
+
+            <div class="info-label">
+              REGION
+            </div>
+
+            <div
+              class="info-value"
+              id="cardRegion"
+            >
               India
             </div>
+
           </div>
 
-          <div class="info-row" id="ogRow">
-            <div class="info-label">OG</div>
-            <div class="info-value">
-              Member
+
+          <div
+            class="info-row"
+            id="ogRow"
+          >
+
+            <div class="info-label">
+              OG MEMBER
             </div>
+
+            <div class="info-value">
+              Yes
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DliCOM MASCOT -->
+
+        <img
+          src="mascot.png"
+          class="mascot"
+          alt="DliCOM Mascot"
+        >
+
+
+        <div class="card-footer">
+
+          <div>
+            Official Member of DliCOM
+          </div>
+
+          <div class="footer-right">
+            dlicom.app
           </div>
 
         </div>
 
       </div>
 
-      <!-- Mascot will be added here -->
-      <div style="
-        position:absolute;
-        right:30px;
-        bottom:65px;
-        width:40%;
-        text-align:center;
-        color:#2f6bff;
-        font-size:70px;
-        font-weight:900;
-        z-index:2;
-      ">
-        D
-      </div>
+    </div>
 
-      <div class="footer">
-        <span>Official Member of DliCOM</span>
-        <span>dlicom.app</span>
-      </div>
+
+    <div class="download-area">
+
+      <button
+        class="download-btn"
+        onclick="downloadCard()"
+      >
+        Download ID Card
+      </button>
 
     </div>
 
   </div>
 
-  <div class="actions">
-    <button onclick="downloadCard()">
-      Download ID Card
-    </button>
-  </div>
 
-</div>
+  <script>
 
-<script>
+    const roleSelect =
+      document.getElementById("role");
 
-const roleSelect = document.getElementById("role");
-const customRole = document.getElementById("customRole");
+    const customRole =
+      document.getElementById("customRole");
 
-roleSelect.addEventListener("change", function() {
 
-  if (this.value === "Custom Role") {
-    customRole.style.display = "block";
-  } else {
-    customRole.style.display = "none";
-  }
+    roleSelect.addEventListener(
+      "change",
+      function () {
 
-});
+        if (
+          this.value === "Custom Role"
+        ) {
 
-function updateCard() {
+          customRole.style.display =
+            "block";
 
-  const name =
-    document.getElementById("name").value || "Your Name";
+        } else {
 
-  const username =
-    document.getElementById("username").value || "@username";
+          customRole.style.display =
+            "none";
 
-  let role =
-    document.getElementById("role").value;
+        }
 
-  if (role === "Custom Role") {
-    role =
-      document.getElementById("customRole").value || "Custom Role";
-  }
+        updateCard();
 
-  const region =
-    document.getElementById("region").value || "India";
+      }
+    );
 
-  const og =
-    document.getElementById("og").checked;
 
-  document.getElementById("cardName").innerText = name;
-  document.getElementById("cardUsername").innerText = username;
-  document.getElementById("cardRole").innerText = role;
-  document.getElementById("cardRegion").innerText = region;
+    document
+      .getElementById("og")
+      .addEventListener(
+        "change",
+        updateCard
+      );
 
-  document.getElementById("ogRow").style.display =
-    og ? "flex" : "none";
-}
 
-function downloadCard() {
+    function updateCard() {
 
-  const card = document.getElementById("idCard");
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim()
+        || "Your Name";
 
-  html2canvas(card, {
-    scale: 3,
-    backgroundColor: null
-  }).then(canvas => {
 
-    const link = document.createElement("a");
+      const username =
+        document
+          .getElementById("username")
+          .value
+          .trim()
+        || "@username";
 
-    link.download = "dlicom-community-id.png";
 
-    link.href = canvas.toDataURL("image/png");
+      let role =
+        roleSelect.value;
 
-    link.click();
 
-  });
+      if (
+        role === "Custom Role"
+      ) {
 
-}
+        role =
+          customRole.value.trim()
+          || "Custom Role";
 
-updateCard();
+      }
 
-</script>
+
+      const region =
+        document
+          .getElementById("region")
+          .value
+          .trim()
+        || "India";
+
+
+      const isOG =
+        document
+          .getElementById("og")
+          .checked;
+
+
+      document
+        .getElementById("cardName")
+        .textContent = name;
+
+
+      document
+        .getElementById("cardUsername")
+        .textContent =
+          username.startsWith("@")
+          ? username
+          : "@" + username;
+
+
+      document
+        .getElementById("cardRole")
+        .textContent = role;
+
+
+      document
+        .getElementById("cardRegion")
+        .textContent = region;
+
+
+      document
+        .getElementById("ogRow")
+        .style.display =
+          isOG ? "flex" : "none";
+
+    }
+
+
+    function downloadCard() {
+
+      const card =
+        document.getElementById("idCard");
+
+
+      html2canvas(
+        card,
+        {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: null
+        }
+      ).then(
+        function (canvas) {
+
+          const link =
+            document.createElement("a");
+
+
+          link.download =
+            "dlicom-community-id.png";
+
+
+          link.href =
+            canvas.toDataURL(
+              "image/png"
+            );
+
+
+          link.click();
+
+        }
+      );
+
+    }
+
+
+    updateCard();
+
+  </script>
 
 </body>
-    </html>
+</html>
