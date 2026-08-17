@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DliCOM ID Card Maker</title>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #050817;
+  color: #fff;
+  padding: 20px 14px 40px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.logo span {
+  color: #2f6bff;
+}
+
+.subtitle {
+  color: #8fa7d9;
+  margin-top: 6px;
+}
+
+.editor {
+  background: #0b1228;
+  border: 1px solid #17295c;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  color: #8fa7d9;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #263d7a;
+  background: #060b1d;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #2f6bff;
+}
+
+.og-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  color: white;
+}
+
+.og-row input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 11px;
+  background: #2f6bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d49c9;
+}
+
+.card-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 1.6 / 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 30px;
+  background:
+    radial-gradient(circle at 80% 45%, rgba(47,107,255,.28), transparent 30%),
+    linear-gradient(135deg, #07102b, #030616);
+  border: 2px solid #2f6bff;
+  box-shadow: 0 0 35px rgba(47,107,255,.25);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border: 1px solid rgba(47,107,255,.18);
+  border-radius: 50%;
+  right: -150px;
+  top: -100px;
+}
+
+.card-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #2f6bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.card-brand {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.card-title {
+  color: #5e8dff;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-top: 3px;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  margin-top: 30px;
+}
+
+.name {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.username {
+  color: #5e8dff;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.info {
+  margin-top: 25px;
+  display: grid;
+  gap: 9px;
+  width: 55%;
+}
+
+.info-row {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.info-label {
+  color: #5e8dff;
+  width: 80px;
+}
+
+.info-value {
+  font-weight: 600;
+}
+
+.mascot {
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+  width: 42%;
+  max-height: 75%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 25px;
+  background: #1d49c9;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  z-index: 3;
+}
+
+.actions {
+  margin-top: 18px;
+}
+
+@media(max-width:600px) {
+
+  body {
+    padding: 12px 10px 30px;
+  }
+
+  .card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .card-logo {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .card-brand {
+    font-size: 17px;
+  }
+
+  .card-title {
+    font-size: 8px;
+  }
+
+  .card-content {
+    margin-top: 22px;
+  }
+
+  .name {
+    font-size: 19px;
+  }
+
+  .username {
+    font-size: 11px;
+  }
+
+  .info {
+    margin-top: 15px;
+    width: 58%;
+    gap: 6px;
+  }
+
+  .info-row {
+    font-size: 10px;
+  }
+
+  .info-label {
+    width: 55px;
+  }
+
+  .mascot {
+    right: 5px;
+    bottom: 18px;
+    width: 43%;
+  }
+
+  .footer {
+    padding: 8px 12px;
+    font-size: 8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">Dli<span>COM</span></div>
+    <div class="subtitle">Community ID Card Maker</div>
+  </div>
+
+  <div class="editor">
+
+    <label>Name</label>
+    <input id="name" placeholder="Enter your name">
+
+    <label>Username</label>
+    <input id="username" placeholder="@username">
+
+    <label>Role</label>
+    <select id="role">
+      <option>Dliever</option>
+      <option>Dcoded</option>
+      <option>DCO</option>
+      <option>Regional Helper</option>
+      <option>Regional Lead</option>
+      <option>MOD</option>
+      <option>OG</option>
+      <option>Custom Role</option>
+    </select>
+
+    <input id="customRole"
+           placeholder="Enter custom role"
+           style="display:none;">
+
+    <label>Region</label>
+    <input id="region" placeholder="India">
+
+    <div class="og-row">
+      <span>OG Member</span>
+      <input type="checkbox" id="og">
+    </div>
+
+    <button onclick="updateCard()">Preview Card</button>
+
+  </div>
+
+  <div class="card-wrap">
+
+    <div class="card" id="idCard">
+
+      <div class="card-top">
+        <div class="card-logo">D</div>
+
+        <div>
+          <div class="card-brand">DliCOM</div>
+          <div class="card-title">COMMUNITY ID</div>
+        </div>
+      </div>
+
+      <div class="card-content">
+
+        <div class="name" id="cardName">
+          Your Name
+        </div>
+
+        <div class="username" id="cardUsername">
+          @username
+        </div>
+
+        <div class="info">
+
+          <div class="info-row">
+            <div class="info-label">ROLE</div>
+            <div class="info-value" id="cardRole">
+              Dliever
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label">REGION</div>
+            <div class="info-value" id="cardRegion">
+              India
+            </div>
+          </div>
+
+          <div class="info-row" id="ogRow">
+            <div class="info-label">OG</div>
+            <div class="info-value">
+              Member
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Mascot will be added here -->
+      <div style="
+        position:absolute;
+        right:30px;
+        bottom:65px;
+        width:40%;
+        text-align:center;
+        color:#2f6bff;
+        font-size:70px;
+        font-weight:900;
+        z-index:2;
+      ">
+        D
+      </div>
+
+      <div class="footer">
+        <span>Official Member of DliCOM</span>
+        <span>dlicom.app</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button onclick="downloadCard()">
+      Download ID Card
+    </button>
+  </div>
+
+</div>
+
+<script>
+
+const roleSelect = document.getElementById("role");
+const customRole = document.getElementById("customRole");
+
+roleSelect.addEventListener("change", function() {
+
+  if (this.value === "Custom Role") {
+    customRole.style.display = "block";
+  } else {
+    customRole.style.display = "none";
+  }
+
+});
+
+function updateCard() {
+
+  const name =
+    document.getElementById("name").value || "Your Name";
+
+  const username =
+    document.getElementById("username").value || "@username";
+
+  let role =
+    document.getElementById("role").value;
+
+  if (role === "Custom Role") {
+    role =
+      document.getElementById("customRole").value || "Custom Role";
+  }
+
+  const region =
+    document.getElementById("region").value || "India";
+
+  const og =
+    document.getElementById("og").checked;
+
+  document.getElementById("cardName").innerText = name;
+  document.getElementById("cardUsername").innerText = username;
+  document.getElementById("cardRole").innerText = role;
+  document.getElementById("cardRegion").innerText = region;
+
+  document.getElementById("ogRow").style.display =
+    og ? "flex" : "none";
+}
+
+function downloadCard() {
+
+  const card = document.getElementById("idCard");
+
+  html2canvas(card, {
+    scale: 3,
+    backgroundColor: null
+  }).then(canvas => {
+
+    const link = document.createElement("a");
+
+    link.download = "dlicom-community-id.png";
+
+    link.href = canvas.toDataURL("image/png");
+
+    link.click();
+
+  });
+
+}
+
+updateCard();
+
+</script>
+
+</body>
+    </html>
