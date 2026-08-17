@@ -1,913 +1,1119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DliCOM ID Card Maker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<title>DliCOM Community ID</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    padding: 22px 14px 50px;
+
+    font-family: "Inter", sans-serif;
+
+    color: #fff;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #172d79 0%,
+            #070d29 38%,
+            #02030c 100%
+        );
+}
+
+.container {
+    width: 100%;
+    max-width: 1050px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(30px, 6vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.header p {
+    margin-top: 7px;
+    color: #9ba9cf;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-box {
+    padding: 22px;
+
+    border-radius: 22px;
+
+    background: rgba(7, 14, 40, .92);
+
+    border: 1px solid rgba(86, 121, 255, .35);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    backdrop-filter: blur(15px);
+
+    margin-bottom: 28px;
+}
+
+.form-title {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    color: #91a8e9;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+input,
+select {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 15px;
+
+    border-radius: 12px;
+
+    border: 1px solid #26396e;
+
+    outline: none;
+
+    background: #080f2b;
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+
+    transition: .2s;
+}
+
+input::placeholder {
+    color: #8793b2;
+    font-weight: 800;
+}
+
+input:focus,
+select:focus {
+    border-color: #507dff;
+
+    box-shadow:
+        0 0 0 3px rgba(80,125,255,.12);
+}
+
+select option {
+    background: #080f2b;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* ROLE */
+
+.role-select {
+    position: relative;
+}
+
+.role-trigger {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 12px;
+
+    border: 1px solid #26396e;
+
+    background: #080f2b;
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.role-trigger:hover {
+    border-color: #507dff;
+}
+
+.role-menu {
+    display: none;
+
+    position: absolute;
+
+    z-index: 100;
+
+    top: 57px;
+    left: 0;
+    right: 0;
+
+    max-height: 280px;
+
+    overflow-y: auto;
+
+    padding: 8px;
+
+    border-radius: 13px;
+
+    background: #070d25;
+
+    border: 1px solid #30467e;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.55);
+}
+
+.role-menu.show {
+    display: block;
+}
+
+.role-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.role-option:hover {
+    background: rgba(65,105,255,.15);
+}
+
+.role-option input {
+    width: 18px;
+    height: 18px;
+
+    accent-color: #4f7dff;
+
+    cursor: pointer;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+button {
+    border: 0;
+
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.generate {
+    flex: 1;
+
+    padding: 14px 20px;
+
+    border-radius: 12px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2f6bff,
+            #5b35ff
+        );
+}
+
+.generate:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 30px rgba(47,107,255,.3);
+}
+
+.download {
+    min-width: 160px;
+
+    padding: 14px 20px;
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    color: #07102d;
+}
+
+/* CARD */
+
+.preview-title {
+    margin: 0 0 12px 4px;
+
+    color: #8191ba;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.card-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+.id-card {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1536 / 1024;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background-image: url("card-bg.png");
+
+    background-size: cover;
+    background-position: center;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.5),
+        0 0 45px rgba(52,91,255,.18);
+}
+
+.card-info {
+    position: absolute;
+
+    left: 5.8%;
+    top: 20%;
+
+    width: 45%;
+
+    z-index: 5;
+}
+
+.brand {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(17px, 2.4vw, 34px);
+
+    font-weight: 800;
+
+    margin-bottom: 2px;
+}
+
+.community {
+    color: #7196ff;
+
+    font-size: clamp(7px, .85vw, 12px);
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 8%;
+}
+
+.name {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(18px, 3vw, 42px);
+
+    font-weight: 800;
+
+    line-height: 1.05;
+
+    margin-bottom: 5px;
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,.5);
+}
+
+.xname {
+    color: #91a9ed;
+
+    font-size: clamp(9px, 1.2vw, 16px);
+
+    font-weight: 700;
+
+    margin-bottom: 6%;
+}
+
+.details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px 18px;
+}
+
+.detail-label {
+    display: block;
+
+    color: #6d93ff;
+
+    font-size: clamp(6px, .7vw, 10px);
+
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+    margin-bottom: 3px;
+}
+
+.detail-value {
+    display: block;
+
+    color: #fff;
+
+    font-size: clamp(8px, .95vw, 14px);
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.id-line {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 7%;
+
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    background: rgba(4,10,35,.72);
+
+    border: 1px solid rgba(105,140,255,.3);
+}
+
+.id-label {
+    color: #7798ff;
+
+    font-size: clamp(6px, .7vw, 10px);
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.id-value {
+    color: #fff;
+
+    font-size: clamp(7px, .85vw, 12px);
+
+    font-weight: 900;
+}
+
+.footer {
+    position: absolute;
+
+    left: 5.8%;
+    bottom: 5.5%;
+
+    color: rgba(255,255,255,.9);
+
+    font-size: clamp(7px, .8vw, 12px);
+
+    font-weight: 800;
+}
+
+.footer-right {
+    position: absolute;
+
+    right: 5.8%;
+    bottom: 5.5%;
+
+    color: rgba(255,255,255,.75);
+
+    font-size: clamp(7px, .8vw, 12px);
+
+    font-weight: 800;
+}
+
+@media (max-width: 650px) {
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #030616;
-      color: #ffffff;
-      min-height: 100vh;
-      padding: 20px 14px 50px;
+        padding: 15px 10px 35px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .brand {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .brand span {
-      color: #2f6bff;
-    }
-
-    .subtitle {
-      margin-top: 5px;
-      color: #8fa7d9;
-      font-size: 14px;
-    }
-
-    /* FORM */
-
-    .editor {
-      background: #091126;
-      border: 1px solid #1c3470;
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.25);
-    }
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      color: #8fa7d9;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 7px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      height: 48px;
-      border-radius: 11px;
-      border: 1px solid #263d7a;
-      background: #050a19;
-      color: #ffffff;
-      padding: 0 13px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #2f6bff;
-      box-shadow: 0 0 0 2px rgba(47,107,255,.15);
-    }
-
-    select option {
-      background: #050a19;
-      color: white;
-    }
-
-    #customRole {
-      display: none;
-      margin-top: 9px;
-    }
-
-    .og-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #050a19;
-      border: 1px solid #263d7a;
-      border-radius: 11px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-    }
-
-    .og-text {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .switch {
-      position: relative;
-      width: 48px;
-      height: 26px;
-    }
-
-    .switch input {
-      display: none;
-    }
-
-    .slider {
-      position: absolute;
-      inset: 0;
-      background: #26324f;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .slider:before {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      left: 3px;
-      top: 3px;
-      background: white;
-      border-radius: 50%;
-      transition: .2s;
-    }
-
-    .switch input:checked + .slider {
-      background: #2f6bff;
-    }
-
-    .switch input:checked + .slider:before {
-      transform: translateX(22px);
-    }
-
-    .preview-btn,
-    .download-btn {
-      width: 100%;
-      height: 48px;
-      border: 0;
-      border-radius: 11px;
-      background: #2f6bff;
-      color: white;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .preview-btn:hover,
-    .download-btn:hover {
-      background: #1d49c9;
-    }
-
-    /* CARD */
-
-    .preview-title {
-      text-align: center;
-      color: #8fa7d9;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .card-area {
-      width: 100%;
-      overflow-x: auto;
-      padding: 5px 0 12px;
-    }
-
-    .card {
-      width: 760px;
-      height: 475px;
-      max-width: 100%;
-      margin: auto;
-      position: relative;
-      overflow: hidden;
-      border-radius: 24px;
-      background:
-        radial-gradient(
-          circle at 82% 45%,
-          rgba(47,107,255,.32),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(94,141,255,.12),
-          transparent 30%
-        ),
-        linear-gradient(135deg, #07102b, #020512);
-
-      border: 2px solid #2f6bff;
-      box-shadow:
-        0 0 35px rgba(47,107,255,.25),
-        inset 0 0 40px rgba(47,107,255,.05);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      width: 470px;
-      height: 470px;
-      right: -170px;
-      top: -80px;
-      border: 1px solid rgba(47,107,255,.18);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 35px rgba(47,107,255,.025),
-        0 0 0 75px rgba(47,107,255,.018);
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 420px;
-      height: 1px;
-      background: rgba(47,107,255,.25);
-      right: 20px;
-      bottom: 110px;
-      transform: rotate(-15deg);
-    }
-
-    /* CARD HEADER */
-
-    .card-header {
-      position: absolute;
-      left: 32px;
-      top: 28px;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .d-mark {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(
-        145deg,
-        #5e8dff,
-        #1d49c9
-      );
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 27px;
-      font-weight: 900;
-      box-shadow: 0 8px 25px rgba(47,107,255,.35);
-    }
-
-    .card-brand {
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    .card-subtitle {
-      margin-top: 3px;
-      color: #5e8dff;
-      font-size: 10px;
-      letter-spacing: 3px;
-      font-weight: 700;
-    }
-
-    /* CARD INFORMATION */
-
-    .card-info {
-      position: absolute;
-      left: 32px;
-      top: 125px;
-      width: 47%;
-      z-index: 5;
-    }
-
-    .card-name {
-      font-size: 30px;
-      font-weight: 900;
-      line-height: 1.1;
-      word-break: break-word;
-    }
-
-    .card-username {
-      color: #5e8dff;
-      font-size: 16px;
-      margin-top: 7px;
-      word-break: break-word;
-    }
-
-    .line {
-      width: 100%;
-      height: 1px;
-      background: rgba(94,141,255,.45);
-      margin: 22px 0 17px;
-    }
-
-    .info-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 13px;
-      font-size: 15px;
-    }
-
-    .info-label {
-      width: 105px;
-      color: #5e8dff;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .info-value {
-      font-weight: 700;
-      word-break: break-word;
-    }
-
-    /* MASCOT */
-
-    .mascot {
-      position: absolute;
-      right: 18px;
-      bottom: 57px;
-      width: 45%;
-      height: 68%;
-      object-fit: contain;
-      object-position: center;
-      z-index: 4;
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,.45));
-    }
-
-    /* FOOTER */
-
-    .card-footer {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 55px;
-      background: linear-gradient(
-        90deg,
-        #1d49c9,
-        #2f6bff
-      );
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-      z-index: 8;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .footer-right {
-      opacity: .95;
-    }
-
-    /* DOWNLOAD */
-
-    .download-area {
-      margin-top: 16px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 600px) {
-
-      body {
-        padding: 12px 10px 35px;
-      }
-
-      .brand {
-        font-size: 27px;
-      }
-
-      .editor {
-        padding: 15px;
-      }
-
-      .card {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1.6 / 1;
+    .form-box {
+        padding: 16px;
         border-radius: 18px;
-      }
-
-      .card-header {
-        left: 16px;
-        top: 16px;
-        gap: 8px;
-      }
-
-      .d-mark {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        font-size: 19px;
-      }
-
-      .card-brand {
-        font-size: 17px;
-      }
-
-      .card-subtitle {
-        font-size: 7px;
-        letter-spacing: 2px;
-      }
-
-      .card-info {
-        left: 16px;
-        top: 85px;
-        width: 51%;
-      }
-
-      .card-name {
-        font-size: 18px;
-      }
-
-      .card-username {
-        font-size: 10px;
-        margin-top: 4px;
-      }
-
-      .line {
-        margin: 12px 0 10px;
-      }
-
-      .info-row {
-        margin-bottom: 7px;
-        font-size: 9px;
-      }
-
-      .info-label {
-        width: 58px;
-        font-size: 7px;
-      }
-
-      .mascot {
-        right: 5px;
-        bottom: 38px;
-        width: 47%;
-        height: 66%;
-      }
-
-      .card-footer {
-        height: 30px;
-        padding: 0 12px;
-        font-size: 7px;
-      }
     }
-  </style>
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .download {
+        width: 100%;
+    }
+
+    .card-wrap,
+    .id-card {
+        border-radius: 14px;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
     <div class="header">
-      <div class="brand">
-        Dli<span>COM</span>
-      </div>
 
-      <div class="subtitle">
-        Community ID Card Maker
-      </div>
+        <h1>DliCOM ID Card</h1>
+
+        <p>Create your DliCOM Community Identity</p>
+
     </div>
 
 
-    <!-- EDITOR -->
+    <div class="form-box">
 
-    <div class="editor">
-
-      <div class="field">
-        <label>Name</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Enter your name"
-        >
-      </div>
-
-
-      <div class="field">
-        <label>Username</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="@username"
-        >
-      </div>
-
-
-      <div class="field">
-
-        <label>Role</label>
-
-        <select id="role">
-
-          <option value="Dliever">
-            Dliever
-          </option>
-
-          <option value="Dcoded">
-            Dcoded
-          </option>
-
-          <option value="DCO">
-            DCO
-          </option>
-
-          <option value="Regional Helper">
-            Regional Helper
-          </option>
-
-          <option value="Regional Lead">
-            Regional Lead
-          </option>
-
-          <option value="MOD">
-            MOD
-          </option>
-
-          <option value="OG">
-            OG
-          </option>
-
-          <option value="Custom Role">
-            Custom Role
-          </option>
-
-        </select>
-
-
-        <input
-          id="customRole"
-          type="text"
-          placeholder="Enter your custom role"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>Region</label>
-
-        <input
-          id="region"
-          type="text"
-          placeholder="India"
-        >
-
-      </div>
-
-
-      <div class="og-box">
-
-        <div class="og-text">
-          OG Member
+        <div class="form-title">
+            Create your card
         </div>
 
-        <label class="switch">
+        <div class="grid">
 
-          <input
-            id="og"
-            type="checkbox"
-          >
+            <div class="field full">
 
-          <span class="slider"></span>
+                <label>Full Name</label>
 
-        </label>
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭"
+                >
 
-      </div>
+            </div>
 
 
-      <button
-        class="preview-btn"
-        onclick="updateCard()"
-      >
-        Preview Card
-      </button>
+            <div class="field">
+
+                <label>X Username</label>
+
+                <input
+                    id="xusername"
+                    type="text"
+                    placeholder="𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Discord Username</label>
+
+                <input
+                    id="discord"
+                    type="text"
+                    placeholder="𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Gender</label>
+
+                <select id="gender">
+
+                    <option value="">𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭</option>
+
+                    <option value="Male">Male</option>
+
+                    <option value="Female">Female</option>
+
+                    <option value="Prefer not to say">
+                        Prefer not to say
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Roles</label>
+
+                <div class="role-select">
+
+                    <button
+                        type="button"
+                        class="role-trigger"
+                        onclick="toggleRoles()"
+                    >
+
+                        <span id="rolePlaceholder">
+                            𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
+                        </span>
+
+                        <span>▼</span>
+
+                    </button>
+
+
+                    <div
+                        class="role-menu"
+                        id="roleMenu"
+                    >
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Dliever">
+                            <span>Dliever</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Dcoded">
+                            <span>Dcoded</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="DCO">
+                            <span>DCO</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Regional Helper">
+                            <span>Regional Helper</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Regional Lead">
+                            <span>Regional Lead</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="MOD">
+                            <span>MOD</span>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="checkbox" value="Team">
+                            <span>Team</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Country</label>
+
+                <select id="country">
+
+                    <option value="">
+                        𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>OG Member</label>
+
+                <select id="og">
+
+                    <option value="">
+                        𝐓𝐲𝐩𝐞 𝐬𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐭𝐨 𝐬𝐭𝐚𝐫𝐭
+                    </option>
+
+                    <option value="Yes">Yes</option>
+
+                    <option value="No">No</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Member Since</label>
+
+                <input
+                    id="memberSince"
+                    type="month"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="generate"
+                onclick="updateCard()"
+            >
+                Generate Card
+            </button>
+
+            <button
+                class="download"
+                onclick="downloadCard()"
+            >
+                Download PNG
+            </button>
+
+        </div>
 
     </div>
 
-
-    <!-- CARD -->
 
     <div class="preview-title">
-      Your DliCOM Community ID
+        Live Preview
     </div>
 
 
-    <div class="card-area">
+    <div class="card-wrap">
 
-      <div
-        class="card"
-        id="idCard"
-      >
-
-        <div class="card-header">
-
-          <div class="d-mark">
-            D
-          </div>
-
-          <div>
-
-            <div class="card-brand">
-              DliCOM
-            </div>
-
-            <div class="card-subtitle">
-              COMMUNITY ID
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="card-info">
-
-          <div
-            class="card-name"
-            id="cardName"
-          >
-            Your Name
-          </div>
-
-
-          <div
-            class="card-username"
-            id="cardUsername"
-          >
-            @username
-          </div>
-
-
-          <div class="line"></div>
-
-
-          <div class="info-row">
-
-            <div class="info-label">
-              ROLE
-            </div>
-
-            <div
-              class="info-value"
-              id="cardRole"
-            >
-              Dliever
-            </div>
-
-          </div>
-
-
-          <div class="info-row">
-
-            <div class="info-label">
-              REGION
-            </div>
-
-            <div
-              class="info-value"
-              id="cardRegion"
-            >
-              India
-            </div>
-
-          </div>
-
-
-          <div
-            class="info-row"
-            id="ogRow"
-          >
-
-            <div class="info-label">
-              OG MEMBER
-            </div>
-
-            <div class="info-value">
-              Yes
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- DliCOM MASCOT -->
-
-        <img
-          src="mascot.png"
-          class="mascot"
-          alt="DliCOM Mascot"
+        <div
+            class="id-card"
+            id="idCard"
         >
 
+            <div class="card-info">
 
-        <div class="card-footer">
+                <div class="brand">
+                    DliCOM
+                </div>
 
-          <div>
-            Official Member of DliCOM
-          </div>
+                <div class="community">
+                    COMMUNITY ID
+                </div>
 
-          <div class="footer-right">
-            dlicom.app
-          </div>
+                <div
+                    class="name"
+                    id="cardName"
+                >
+                    Your Name
+                </div>
+
+                <div
+                    class="xname"
+                    id="cardX"
+                >
+                    @username
+                </div>
+
+
+                <div class="details">
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            ROLE
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardRole"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            REGION
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardCountry"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            DISCORD
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardDiscord"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            GENDER
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardGender"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            OG MEMBER
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardOG"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            MEMBER SINCE
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="cardSince"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="id-line">
+
+                    <span class="id-label">
+                        DLICOM ID
+                    </span>
+
+                    <span
+                        class="id-value"
+                        id="cardId"
+                    >
+                        DLC-000000
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer">
+                Official DliCOM Community Member
+            </div>
+
+            <div class="footer-right">
+                dlicom.app
+            </div>
 
         </div>
 
-      </div>
-
     </div>
 
-
-    <div class="download-area">
-
-      <button
-        class="download-btn"
-        onclick="downloadCard()"
-      >
-        Download ID Card
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <script>
+<script>
 
-    const roleSelect =
-      document.getElementById("role");
+/* =========================================
+   ALL 195 COUNTRIES
+========================================= */
 
-    const customRole =
-      document.getElementById("customRole");
+const countries = [
 
-
-    roleSelect.addEventListener(
-      "change",
-      function () {
-
-        if (
-          this.value === "Custom Role"
-        ) {
-
-          customRole.style.display =
-            "block";
-
-        } else {
-
-          customRole.style.display =
-            "none";
-
-        }
-
-        updateCard();
-
-      }
-    );
-
-
-    document
-      .getElementById("og")
-      .addEventListener(
-        "change",
-        updateCard
-      );
-
-
-    function updateCard() {
-
-      const name =
-        document
-          .getElementById("name")
-          .value
-          .trim()
-        || "Your Name";
-
-
-      const username =
-        document
-          .getElementById("username")
-          .value
-          .trim()
-        || "@username";
-
-
-      let role =
-        roleSelect.value;
-
-
-      if (
-        role === "Custom Role"
-      ) {
-
-        role =
-          customRole.value.trim()
-          || "Custom Role";
-
-      }
-
-
-      const region =
-        document
-          .getElementById("region")
-          .value
-          .trim()
-        || "India";
-
-
-      const isOG =
-        document
-          .getElementById("og")
-          .checked;
-
-
-      document
-        .getElementById("cardName")
-        .textContent = name;
-
-
-      document
-        .getElementById("cardUsername")
-        .textContent =
-          username.startsWith("@")
-          ? username
-          : "@" + username;
-
-
-      document
-        .getElementById("cardRole")
-        .textContent = role;
-
-
-      document
-        .getElementById("cardRegion")
-        .textContent = region;
-
-
-      document
-        .getElementById("ogRow")
-        .style.display =
-          isOG ? "flex" : "none";
-
-    }
-
-
-    function downloadCard() {
-
-      const card =
-        document.getElementById("idCard");
-
-
-      html2canvas(
-        card,
-        {
-          scale: 3,
-          useCORS: true,
-          backgroundColor: null
-        }
-      ).then(
-        function (canvas) {
-
-          const link =
-            document.createElement("a");
-
-
-          link.download =
-            "dlicom-community-id.png";
-
-
-          link.href =
-            canvas.toDataURL(
-              "image/png"
-            );
-
-
-          link.click();
-
-        }
-      );
-
-    }
-
-
-    updateCard();
-
-  </script>
-
-</body>
-    </html>
+["Afghanistan","AF"],
+["Albania","AL"],
+["Algeria","DZ"],
+["Andorra","AD"],
+["Angola","AO"],
+["Antigua and Barbuda","AG"],
+["Argentina","AR"],
+["Armenia","AM"],
+["Australia","AU"],
+["Austria","AT"],
+["Azerbaijan","AZ"],
+["Bahamas","BS"],
+["Bahrain","BH"],
+["Bangladesh","BD"],
+["Barbados","BB"],
+["Belarus","BY"],
+["Belgium","BE"],
+["Belize","BZ"],
+["Benin","BJ"],
+["Bhutan","BT"],
+["Bolivia","BO"],
+["Bosnia and Herzegovina","BA"],
+["Botswana","BW"],
+["Brazil","BR"],
+["Brunei","BN"],
+["Bulgaria","BG"],
+["Burkina Faso","BF"],
+["Burundi","BI"],
+["Cabo Verde","CV"],
+["Cambodia","KH"],
+["Cameroon","CM"],
+["Canada","CA"],
+["Central African Republic","CF"],
+["Chad","TD"],
+["Chile","CL"],
+["China","CN"],
+["Colombia","CO"],
+["Comoros","KM"],
+["Congo","CG"],
+["Costa Rica","CR"],
+["Croatia","HR"],
+["Cuba","CU"],
+["Cyprus","CY"],
+["Czechia","CZ"],
+["Democratic Republic of the Congo","CD"],
+["Denmark","DK"],
+["Djibouti","DJ"],
+["Dominica","DM"],
+["Dominican Republic","DO"],
+["Ecuador","EC"],
+["Egypt","EG"],
+["El Salvador","SV"],
+["Equatorial Guinea","GQ"],
+["Eritrea","ER"],
+["Estonia","EE"],
+["Eswatini","SZ"],
+["Ethiopia","ET"],
+["Fiji","FJ"],
+["Finland","FI"],
+["France","FR"],
+["Gabon","GA"],
+["Gambia","GM"],
+["Georgia","GE"],
+["Germany","DE"],
+["Ghana","GH"],
+["Greece","GR"],
+["Grenada","GD"],
+["Guatemala","GT"],
+["Guinea","GN"],
+["Guinea-Bissau","GW"],
+["Guyana","GY"],
+["Haiti","HT"],
+["Honduras","HN"],
+["Hungary","HU"],
+["Iceland","IS"],
+["India","IN"],
+["Indonesia","ID"],
+["Iran","IR"],
+["Iraq","IQ"],
+["Ireland","IE"],
+["Israel","IL"],
+["Italy","IT"],
+["Jamaica","JM"],
+["Japan","JP"],
+["Jordan","JO"],
+["Kazakhstan","KZ"],
+["Kenya","KE"],
+["Kiribati","KI"],
+["Kuwait","KW"],
+["Kyrgyzstan","KG"],
+["Laos","LA"],
+["Latvia","LV"],
+["Lebanon","LB"],
+["Lesotho","LS"],
+["Liberia","LR"],
+["Libya","LY"],
+["Liechtenstein","LI"],
+["Lithuania","LT"],
+["Luxembourg","LU"],
+["Madagascar","MG"],
+["Malawi","MW"],
+["Malaysia","MY"],
+["Maldives","MV"],
+["Mali","ML"],
+["Malta","MT"],
+["Marshall Islands","MH"],
+["Mauritania","MR"],
+["Mauritius","MU"],
+["Mexico","MX"],
+["Micronesia","FM"],
+["Moldova","MD"],
+["Monaco","MC"],
+["Mongolia","MN"],
+["Montenegro","ME"],
+["Morocco","MA"],
+["Mozambique","MZ"],
+["Myanmar","MM"],
+["Namibia","NA"],
+["Nauru","NR"],
+["Nepal","NP"],
+["Netherlands","NL"],
+["New Zealand","NZ"],
+["Nicaragua","NI"],
+["Niger","NE"],
+["Nigeria","NG"],
+["North Korea","KP"],
+["North Macedonia","MK"],
+["Norway","NO"],
+["Oman","OM"],
+["Pakistan","PK"],
+["Palau","PW"],
+["Palestine","PS"],
+["Panama","PA"],
+["Papua New Guinea","PG"],
+["Paraguay","PY"],
+["Peru","PE"],
+["Philippines","PH"],
+["Poland","PL"],
+["Portugal","PT"],
+["Qatar","QA"],
+["Romania","RO"],
+["Russia","RU"],
+["Rwanda","RW"],
+["Saint Kitts and Nevis","KN"],
+["Saint Lucia","LC"],
+["Saint Vincent and the Grenadines","VC"],
+["Samoa","WS"],
+["San Marino","SM"],
+["Sao Tome and Principe","ST"],
+["Saudi Arabia","SA"],
+["Senegal","SN"],
+["Serbia","RS"],
+["Seychelles","SC"],
+["Sierra Leone","SL"],
+["Singapore","SG"],
+["Slovakia","SK"],
+["Slovenia","SI"],
+["Solomon Islands","SB"],
+["Somalia","SO"],
+["South Africa","ZA"],
+["South Korea","KR"],
+["South Sudan","SS"],
+["Spain","ES"],
+["Sri Lanka","LK"],
+["Sudan","SD"],
+["Suriname","SR"],
+["Sweden","SE"],
+["Switzerland","CH"],
+["Syria","SY"],
+["Tajikistan","TJ"],
+["Tanzania","TZ"],
+["Thailand","T
